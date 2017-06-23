@@ -61,6 +61,17 @@ const serve = (path, cache) => express.static(resolve(path), {
   maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0
 });
 
+const postIpInfo = (param) => {
+	console.log(param, 'param--------------');
+	axios.post('/application/api/analysisIp', param)
+	.then((respose) => {
+		console.log(respose.data);
+	})
+	.catch((err) => {
+		console.log(err.response.data);
+	})
+};
+
 app.use(cookieParser());
 app.use(useragent.express());
 app.use(compression({ threshold: 0 }));
@@ -98,7 +109,7 @@ function render (req, res) {
 	});
 	console.log(req.cookies['aming_token']);
 
-	// console.log(req.useragent, '------------------');
+	console.log(req.useragent, '------------------');
 	let ip = req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 	if (ip.substr(0, 7) === "::ffff:") {
 		ip = ip.substr(7)
@@ -106,8 +117,16 @@ function render (req, res) {
 	console.log('ip', ip);
 
 	axios.post(`http://ip.taobao.com/service/getIpInfo.php?ip=${'223.208.46.22'}`)
-	.then( (response) => {
-		console.log(response.data);
+	.then( ({data}) => {
+		console.log(data);
+		postIpInfo({
+			country: data.data.country,
+			country_id: data.data.country_id,
+			region: data.data.region,
+			city: data.data.city,
+			county: data.county,
+			ip: data.data.ip,
+		});
 	})
 	.catch((err) => {
 		console.log(err.response.data);
