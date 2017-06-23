@@ -8,6 +8,7 @@ const resolve = file => path.resolve(__dirname, file);
 const { createBundleRenderer } = require('vue-server-renderer');
 const useragent = require('express-useragent');
 const axios = require('axios');
+const cookieParser = require('cookie-parser');
 
 const isProd = process.env.NODE_ENV === 'production';
 const useMicroCache = process.env.MICRO_CACHE !== 'false';
@@ -60,6 +61,7 @@ const serve = (path, cache) => express.static(resolve(path), {
   maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0
 });
 
+app.use(cookieParser());
 app.use(useragent.express());
 app.use(compression({ threshold: 0 }));
 app.use(favicon('./public/logo-48.png'));
@@ -84,7 +86,7 @@ const isCacheable = req => useMicroCache;
 function render (req, res) {
 	// axios全局配置
 	axios.defaults.headers.common['Content-Type'] = 'application/json';
-	axios.defaults.headers.common['aming-token'] = '61565544';
+	axios.defaults.headers.common['aming-token'] = req.cookies['aming-token'] || {};
 
 	// 拦截请求
 	axios.interceptors.response.use(function (response) {
@@ -95,12 +97,22 @@ function render (req, res) {
 		return Promise.reject(error);
 	});
 
-  const s = Date.now();
-
+	// console.log(req.useragent, '------------------');
 	let ip = req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 	if (ip.substr(0, 7) === "::ffff:") {
 		ip = ip.substr(7)
 	}
+	console.log('ip', ip);
+
+	axios.post(`http://ip.taobao.com/service/getIpInfo.php?ip=${'223.208.46.22'}`)
+	.then( (response) => {
+		console.log(response.data);
+	})
+	.catch((err) => {
+		console.log(err.response.data);
+	});
+
+  const s = Date.now();
 
   res.setHeader("Content-Type", "text/html");
   res.setHeader("Server", serverInfo);
@@ -146,12 +158,6 @@ function render (req, res) {
 }
 
 app.get('*', isProd ? render : (req, res) => {
-	// console.log(req.useragent, '------------------');
-	let ip = req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-	if (ip.substr(0, 7) === "::ffff:") {
-		ip = ip.substr(7)
-	}
-	console.log('ip', ip);
   readyPromise.then(() => render(req, res))
 });
 
