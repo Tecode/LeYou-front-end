@@ -37,6 +37,7 @@
         box-shadow: 0 4px 4px 2px rgba(0, 0, 0, 0.2);
         transition: all .2s;
         visibility: hidden;
+        transform:rotateX(45deg);
     }
     .normal {
         background-color: @background-color50;
@@ -47,5 +48,6 @@
     .message_show{
         top: 60px;
         visibility: visible;
+        transform:rotateX(0);
     }
 </style>

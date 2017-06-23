@@ -15,6 +15,7 @@
     "npm": ">=3.0"
   },
   "dependencies": {
+    "antimoderate": "0.0.2",
     "axios": "^0.16.2",
     "compression": "^1.6.2",
     "cookie-parser": "^1.4.3",

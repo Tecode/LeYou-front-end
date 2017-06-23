@@ -61,10 +61,6 @@ const LoginRegistration = {
 	},
 	actions: {
 		[loginRequest]({state, commit, rootState}, value){
-			commit('SHOW_MESSAGE',{
-				text: '点击了登录',
-				isError: true,
-				isShow: true});
 			commit('request', {
 				loading: true,
 				isError: false,
@@ -82,6 +78,12 @@ const LoginRegistration = {
 					isError: false,
 					data: response });
 				commit('closePopup');
+				// 登录成功
+				commit('SHOW_MESSAGE',{
+					text: '登录成功',
+					isError: false,
+					isShow: true});
+				commit('SETUSERINFO', response.data)
 			}).catch( (err) => {
 				commit('request', {
 					loading: false,

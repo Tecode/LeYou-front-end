@@ -85,17 +85,18 @@ const isCacheable = req => useMicroCache;
 
 function render (req, res) {
 	// axios全局配置
-	axios.defaults.headers.common['Content-Type'] = 'application/json';
-	axios.defaults.headers.common['aming-token'] = req.cookies['aming-token'] || {};
-
+	// axios.defaults.headers.common['Content-Type'] = 'application/json';
+	axios.defaults.headers.common['token'] = req.cookies['aming_token'] || {};
 	// 拦截请求
 	axios.interceptors.response.use(function (response) {
+		// console.log(response.data, '---------------');
 		// Do something with response data
 		return response;
 	}, function (error) {
 		// Do something with response error
 		return Promise.reject(error);
 	});
+	console.log(req.cookies['aming_token']);
 
 	// console.log(req.useragent, '------------------');
 	let ip = req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;

@@ -8,8 +8,11 @@ export const inputContent = 'inputContent';
 export const loginRequest = 'loginRequest';
 export const registerRequest = 'registerRequest';
 
-//----------导航栏mutations
+//----------导航mutations
 export const listenerRouting = 'listenerRouting';
+export const SETUSERINFO = 'SETUSERINFO';
+//----------导航action
+export const GETUSERINFO = 'GETUSERINFO';
 
 //---------信息提示mutations
 export const SHOW_MESSAGE = 'SHOW_MESSAGE';

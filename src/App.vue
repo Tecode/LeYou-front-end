@@ -19,13 +19,13 @@
                         <router-link class="nav_link" :class="{active : activeNav === '/updatelog'}" to="/updatelog">
                             更新日志
                         </router-link>
-                        <div class="pull-right">
+                        <div v-if="!userInfo.user_name" class="pull-right">
                             <a @click="loginRegistration('login')" class="nav_link">登录</a>
                             <a @click="loginRegistration('registration')" class="nav_link">注册</a>
                         </div>
-                        <!--<div class="pull-right">-->
-                        <!--<a class="nav_link">欢迎你，aming!</a>-->
-                        <!--</div>-->
+                        <div v-if="userInfo.user_name" class="pull-right">
+                        <span class="nav_welcome">欢迎你，{{userInfo.user_name}}!</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -55,6 +55,7 @@
 		computed: {
 			...mapState({
 				activeNav: state => state.NavHeader.activeNav,
+				userInfo: state => state.NavHeader.userInfo,
 			}),
 			...mapGetters({
 				doneTodosCount: 'doneTodosCount'
@@ -62,7 +63,7 @@
 		},
 		methods: {
 			...mapActions({
-//				changeName: 'changeName'
+				GETUSERINFO: 'GETUSERINFO'
 			}),
 			...mapMutations({
 				listenerRouting: 'listenerRouting', // 映射 this.listenerRouting() 为 this.$store.commit('listenerRouting')
@@ -74,10 +75,7 @@
 		},
 		created: function () {
 			this.listenerRouting(this.$route.fullPath);
-//			console.log(this.name);
-//			console.log(this.changeName(3662), 'changeName');
-//			console.log(this.doneTodosCount, 'doneTodosCount');
-//			console.log(this.fullPath, 'fullPath---------------');
+			this.GETUSERINFO();
 		},
 		data () {
 			return {
@@ -148,6 +146,13 @@
                 //background-color: @background-color150;
                 color: @white;
             }
+        }
+        .nav_welcome{
+            padding: 0 11px 0 11px;
+            height: 40px;
+            display: block;
+            line-height: 3em;
+            cursor: pointer;
         }
         .active {
             color: @white;
