@@ -30,6 +30,7 @@
                 </div>
             </div>
         </div>
+        <div class="tips">网站目前处于开发阶段，只有登录、注册功能可以使用，其它功能只做展示。敬请期待！</div>
         <login-register></login-register>
         <message></message>
         <transition name="fade" mode="out-in">
@@ -95,7 +96,18 @@
     body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     }
-
+    .tips{
+        background-color: #ff0040;
+        position: fixed;
+        top:40px;
+        z-index: 1000;
+        left: 0;
+        right: 0;
+        text-align: center;
+        padding: 5px 0;
+        color: #fff;
+        font-size: 14px;
+    }
     .view {
         margin-top: 40px;
     }
