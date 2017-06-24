@@ -8,29 +8,29 @@
             <div class="box_body">
                 <ul>
                     <li class="user_input">
-                        <label for="user"></label>
-                        <input id="user" placeholder="用户名"/>
-                        <p class="error_tips">用户名不能为空</p>
+                        <label for="user_name"></label>
+                        <input @input="inputContent" type="text" id="user_name" placeholder="用户名"/>
+                        <p></p>
                     </li>
                     <li class="user_email">
-                        <label for="email"></label>
-                        <input id="email" type="password" placeholder="邮箱账号"/>
-                        <p class="error_tips">邮箱格式错误</p>
+                        <label for="user_email"></label>
+                        <input @input="inputContent" id="user_email" type="email" placeholder="邮箱账号"/>
+                        <p></p>
                     </li>
                     <li class="user_password">
                         <label for="password"></label>
-                        <input id="password" type="password" placeholder="登录密码"/>
-                        <p class="error_tips">不能小于8位数</p>
+                        <input @input="inputContent" id="password" type="password" placeholder="登录密码6-15位"/>
+                        <p></p>
                     </li>
                     <li class="user_confirm_password">
                         <label for="confirm_password"></label>
-                        <input id="confirm_password" type="password" placeholder="重复密码"/>
-                        <p class="error_tips">密码不一致</p>
+                        <input @input="inputContent" id="confirm_password" type="password" placeholder="重复密码6-15位"/>
+                        <p :class="{error_tips:isError}">{{data.error}}</p>
                     </li>
                     <li class="submit">
                         <label for="submit"></label>
-                        <input type="button" value="立即注册" id="submit"/>
-                        <loading-line></loading-line>
+                        <input @click="registerRequest" type="button" value="立即注册" id="submit"/>
+                        <loading-line v-if="loading"></loading-line>
                     </li>
                 </ul>
             </div>
@@ -41,7 +41,8 @@
 <script>
 	import {mapMutations} from 'vuex';
 	import {mapState} from 'vuex';
-		import LoadingLine from '../../components/common/LoadingLine.vue';
+	import {mapActions} from 'vuex';
+	import LoadingLine from '../../components/common/LoadingLine.vue';
 
 	export default {
 		name: 'comment',
@@ -49,15 +50,13 @@
 		components:{
 		    LoadingLine
         },
-		data () {
-			return {
-				isHiden: true
-			}
-		},
 		computed: {
 			...mapState({
 				boxStatus: state => state.LoginRegistration.boxStatus,
 				boxOpacity: state => state.LoginRegistration.boxOpacity,
+				loading: state => state.LoginRegistration.loading,
+				isError: state => state.LoginRegistration.isError,
+				data: state => state.LoginRegistration.data,
 
 				user_email: state => state.LoginRegistration.user_email,
 				password: state => state.LoginRegistration.password,
@@ -68,7 +67,11 @@
 		methods: {
 			...mapMutations({
 				closePopup: 'closePopup',
+				inputContent: 'inputContent'
 			}),
+			...mapActions({
+				registerRequest: 'registerRequest'
+			})
 		}
 	}
 </script>

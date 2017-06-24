@@ -13,6 +13,9 @@ axios.interceptors.response.use(function (response) {
 export const loginRequestApi = (param) => {
 	return axios.post('/application/api/login', param);
 };
+export const registerRequestApi = (param) => {
+	return axios.post('/application/api/register', param);
+};
 
 export const getUserInfoApi = (param) => {
 	return axios.get('/application/api/userInfo');

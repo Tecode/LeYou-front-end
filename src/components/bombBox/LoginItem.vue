@@ -9,7 +9,7 @@
                 <ul>
                     <li class="user_input">
                         <label for="user_email"></label>
-                        <input id="user_email" @input="inputContent" v-model="user_email" placeholder="邮箱账号"/>
+                        <input id="user_email" @input="inputContent" type="email" v-model="user_email" placeholder="邮箱账号"/>
                         <p class=""></p>
                     </li>
                     <li class="user_password">
