@@ -116,7 +116,7 @@ function render (req, res) {
 		// Do something with response error
 		return Promise.reject(error);
 	});
-	console.log(req.cookies['aming_token']);
+	// console.log(req.cookies['aming_token']);
 	let ip = req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 	if (ip.substr(0, 7) === "::ffff:") {
 		ip = ip.substr(7)
