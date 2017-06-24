@@ -1,11 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import HomePage from '../views/HomePage.vue';
-import UpdateLog from '../views/UpdateLog.vue';
-import Message from '../views/Message.vue';
-import Share from '../views/Share.vue';
-import Discover from '../views/Discover.vue';
+// import HomePage from '../views/HomePage.vue';
+// import UpdateLog from '../views/UpdateLog.vue';
+// import Message from '../views/Message.vue';
+// import Share from '../views/Share.vue';
+// import Discover from '../views/Discover.vue';
+
+const HomePage = r => require.ensure([], () => r(require('../views/HomePage.vue')));
+const UpdateLog = r => require.ensure([], () => r(require('../views/UpdateLog.vue')));
+const Message = r => require.ensure([], () => r(require('../views/Message.vue')));
+const Share = r => require.ensure([], () => r(require('../views/Share.vue')));
+const Discover = r => require.ensure([], () => r(require('../views/Discover.vue')));
 
 Vue.use(Router);
 
