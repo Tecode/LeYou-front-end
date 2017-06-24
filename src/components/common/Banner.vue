@@ -4,7 +4,7 @@
         <div class="timer_user">
             <h1 class="pull-left">{{currentTime}}</h1>
             <div class="pull-left user">
-                <p>{{currentStatus}}好，阿明</p>
+                <p>{{currentStatus}}好</p>
                 <p>{{currentDate}}</p>
             </div>
         </div>
@@ -55,7 +55,7 @@
         }
         .timer_user {
             position: absolute;
-            width: 340px;
+            width: 320px;
             height: 75px;
             bottom: 60px;
             left: 50%;

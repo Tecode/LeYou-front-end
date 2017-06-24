@@ -46,9 +46,13 @@
     @import "../../lib/style/color";
 
     .banner {
+        background: url("../../imgs/img_lijiang.jpg") 0 0 no-repeat;
+        background-size: cover;
+        background-position: center center;
         height: 540px;
         background-color: #223343;
         position: relative;
+        min-width: 800px;
         .input_box {
             position: absolute;
             top: 200px;
