@@ -62,8 +62,17 @@ const serve = (path, cache) => express.static(resolve(path), {
 });
 
 const postIpInfo = (param) => {
-	console.log(param, 'param--------------');
 	axios.post('/application/api/analysisIp', param)
+	.then((respose) => {
+		console.log(respose.data);
+	})
+	.catch((err) => {
+		console.log(err.response.data);
+	})
+};
+const deviceInfo = (param) => {
+	console.log(param, 'param--------------');
+	axios.post('/application/api/analysisInfo', param)
 	.then((respose) => {
 		console.log(respose.data);
 	})
@@ -108,25 +117,43 @@ function render (req, res) {
 		return Promise.reject(error);
 	});
 	console.log(req.cookies['aming_token']);
-
-	console.log(req.useragent, '------------------');
 	let ip = req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 	if (ip.substr(0, 7) === "::ffff:") {
 		ip = ip.substr(7)
 	}
-	console.log('ip', ip);
-
-	axios.post(`http://ip.taobao.com/service/getIpInfo.php?ip=${'223.208.46.22'}`)
+if (ip !== '127.0.0.1'){
+	// 获取登录设备信息
+	deviceInfo({
+		platform: req.useragent.platform,
+		browser: req.useragent.browser,
+		isiPad: req.useragent.isiPad,
+		isiPhone: req.useragent.isiPhone,
+		isAndroid: req.useragent.isAndroid,
+		isMobile: req.useragent.isMobile,
+		isIE: req.useragent.isIE,
+		isFirefox: req.useragent.isFirefox,
+		isEdge: req.useragent.isEdge,
+		isChrome: req.useragent.isChrome,
+		isSafari: req.useragent.isSafari,
+		isWindows: req.useragent.isWindows,
+		isLinux: req.useragent.isLinux,
+		isMac: req.useragent.isMac,
+		isUC: req.useragent.isUC,
+		version: req.useragent.version,
+	});
+}
+	axios.post(`http://ip.taobao.com/service/getIpInfo.php?ip=${ip}`)
 	.then( ({data}) => {
-		console.log(data);
-		postIpInfo({
-			country: data.data.country,
-			country_id: data.data.country_id,
-			region: data.data.region,
-			city: data.data.city,
-			county: data.county,
-			ip: data.data.ip,
-		});
+		if (ip !== '127.0.0.1'){
+			postIpInfo({
+				country: data.data.country,
+				country_id: data.data.country_id,
+				region: data.data.region,
+				city: data.data.city,
+				county: data.county,
+				ip: data.data.ip,
+			});
+		}
 	})
 	.catch((err) => {
 		console.log(err.response.data);
