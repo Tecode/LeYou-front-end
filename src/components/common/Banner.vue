@@ -34,7 +34,7 @@
 </script>
 
 <style lang="less" scoped>
-    @import "../../lib/style/global";
+    @import "../../lib/style/color";
 
     .banner {
         background: url("../../imgs/banner_image.jpg") 0 0 no-repeat;
