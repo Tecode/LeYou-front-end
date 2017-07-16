@@ -6,10 +6,10 @@
                 <div class="col-md-12">
                     <about-me></about-me>
                 </div>
-                <div class="col-md-8 col-lg-9">
+                <div class="col-md-12 col-lg-12">
                     <all-contents></all-contents>
                 </div>
-                <div class="col-md-4 col-lg-3">3</div>
+                <!--<div class="col-md-4 col-lg-3">3</div>-->
                 <div class="col-md-12">
                     <share-module title='推荐模板'></share-module>
                 </div>

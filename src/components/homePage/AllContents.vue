@@ -11,40 +11,60 @@
             </div>
         </div>
         <div class="contents">
-            <single-item></single-item>
-            <single-item></single-item>
-            <single-item></single-item>
-            <single-item></single-item>
-            <single-item></single-item>
-            <single-item></single-item>
-            <single-item></single-item>
-            <single-item></single-item>
-            <single-item></single-item>
-            <single-item></single-item>
+            <single-item
+                    v-for="item in dataList"
+                    :key="item.aid"
+                    :item="item"></single-item>
         </div>
         <div class="page-pagination text-center">
             <el-pagination
                     layout="prev, pager, next"
-                    :total="50">
+                    @current-change="changePage"
+                    :page-size="10"
+                    :total="total">
             </el-pagination>
         </div>
     </div>
 </template>
 
 <script>
-	import SingleItem from '../common/SingleItem.vue';
+	import SingleItem from '../homePage/SingleItem.vue';
+	import {mapMutations, mapState, mapActions} from 'vuex';
+
 	export default {
 		name: 'AllContents',
 		components: {
 			SingleItem
 		},
-		data () {
-			return {
-				open: true
-			}
+		computed: {
+			...mapState({
+				dataList: state => state.Article.dataList,
+				total: state => state.Article.total,
+				index: state => state.Ui.index,
+				size: state => state.Ui.size,
+			}),
 		},
-		computed: {},
-		methods: {}
+		mounted: function () {
+			this.getArticleList({
+				index: this.index,
+				size: this.size,
+			});
+		},
+		methods: {
+			changePage: function (val) {
+				this.setIndexSize({index: val, size: 10});
+				this.getArticleList({
+					index: this.index,
+					size: this.size,
+				});
+			},
+			...mapMutations({
+				setIndexSize: 'SET_INDEX_SIZE',
+			}),
+			...mapActions({
+				getArticleList: 'GET_LIST_ARTICLE_DATA',
+			})
+		}
 	}
 </script>
 
@@ -55,7 +75,7 @@
         background-color: @white200;
         border-radius: @border-radius6;
         box-shadow: @box-shadow26;
-        margin-right: 10px;
+        /*margin-right: 10px;*/
         padding-bottom: 40px;
         .page-pagination {
             padding: 30px 0 0 0;

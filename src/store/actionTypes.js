@@ -16,3 +16,11 @@ export const GETUSERINFO = 'GETUSERINFO';
 
 //---------信息提示mutations
 export const SHOW_MESSAGE = 'SHOW_MESSAGE';
+
+// 文章
+export const SET_LIST_ARTICLE_DATA = 'SET_LIST_ARTICLE_DATA';
+export const SET_ARTICLE_DATA = 'SET_ARTICLE_DATA';
+export const GET_LIST_ARTICLE_DATA = 'GET_LIST_ARTICLE_DATA';
+export const GET_ARTICLE_DATA = 'GET_ARTICLE_DATA';
+// Ui
+export const SET_INDEX_SIZE = 'SET_INDEX_SIZE';

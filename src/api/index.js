@@ -16,7 +16,14 @@ export const loginRequestApi = (param) => {
 export const registerRequestApi = (param) => {
 	return axios.post('/application/api/register', param);
 };
-
+//获取文章列表
+export const getArticelListApi = ({index, size}) => {
+	return axios.get('/application/api/getArticel', {params:{index :index, size: size}});
+};
+// 获取文章api
+export const getArticelApi = (id, param) => {
+	return axios.get(`/application/api/getArticel/${id}`, param);
+};
 export const getUserInfoApi = (param) => {
 	return axios.get('/application/api/userInfo');
 };
