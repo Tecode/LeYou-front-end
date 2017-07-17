@@ -1,11 +1,22 @@
 <template>
     <div>
-        Article
+        <banner></banner>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <article-content></article-content>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
+	import Banner from '../components/article/Banner.vue'
+	import ArticleContent from '../components/article/ArticleContent.vue'
+
 	export default {
+		components: {Banner, ArticleContent},
 		name: 'comment',
 		props: ['id'],
 		data () {
@@ -13,7 +24,9 @@
 				open: true
 			}
 		},
-		computed: {},
+		computed: {
+
+		},
 		methods: {}
 	}
 </script>

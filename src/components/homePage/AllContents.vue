@@ -21,6 +21,7 @@
                     layout="prev, pager, next"
                     @current-change="changePage"
                     :page-size="10"
+                    :current-page="index"
                     :total="total">
             </el-pagination>
         </div>
