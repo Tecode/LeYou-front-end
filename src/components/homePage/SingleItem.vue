@@ -2,8 +2,8 @@
     <div class="single_content_box">
         <div class="single_content" @click="jumpLink(item.aid)">
             <div class="clearfix">
-                <div class="image_box pull-left">
-                    <div class="image_data_time text-center" :style="{backgroundImage: `url(${item.imageurl})`}">
+                <div class="image_box pull-left" :style="{backgroundImage: `url(${item.imageurl})`}">
+                    <div class="image_data_time text-center">
                         <h3>{{item.day}}</h3>
                         <p>{{item.month}}</p>
                     </div>
