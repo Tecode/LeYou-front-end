@@ -1,5 +1,6 @@
 import { loginRequestApi, registerRequestApi } from '../../api';
 import CryptoJS from 'crypto-js';
+import { Message } from 'element-ui';
 import {
 	loginRegistration,
 	closePopup,
@@ -89,12 +90,12 @@ const LoginRegistration = {
 							loading: false,
 							isError: false,
 							data: response });
-						commit('closePopup');
 						// 登录成功
-						commit('SHOW_MESSAGE',{
-							text: '登录成功',
-							isError: false,
-							isShow: true});
+						Message({
+							showClose: false,
+							message: '登录成功！',
+							type: 'success'
+						});
 						commit('SETUSERINFO', response.data)
 					}).catch( (err) => {
 						commit('request', {
@@ -156,10 +157,11 @@ const LoginRegistration = {
 							data: response });
 						commit('closePopup');
 						// 登录成功
-						commit('SHOW_MESSAGE',{
-							text: '注册成功',
-							isError: false,
-							isShow: true});
+						Message({
+							showClose: false,
+							message: '注册成功！',
+							type: 'success'
+						});
 						commit('SETUSERINFO', response.data)
 					}).catch( (err) => {
 						commit('request', {

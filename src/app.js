@@ -10,11 +10,9 @@ import './static/styles/pagination.min.css'
 import 'element-ui/lib/theme-default/message.css'
 import {
 	Pagination,
-	Message,
 } from 'element-ui';
 
 Vue.use(Pagination);
-Vue.use(Message);
 
 // mixin for handling title
 Vue.mixin(titleMixin);

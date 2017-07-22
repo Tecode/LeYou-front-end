@@ -32,7 +32,6 @@
         </div>
         <div class="site_tips">网站目前处于开发阶段，只有登录、注册功、文章阅读功能可以使用，其它功能只做展示。敬请期待！</div>
         <login-register></login-register>
-        <message></message>
         <transition name="fade" mode="out-in">
             <router-view class="view"></router-view>
         </transition>
@@ -40,7 +39,6 @@
 </template>
 <script>
 	import LoginRegister from './components/bombBox/LoginRegister.vue';
-	import Message from './components/common/Message.vue';
 	import {mapState} from 'vuex';
 	import {mapActions} from 'vuex';
 	import {mapGetters} from 'vuex';
@@ -51,7 +49,6 @@
 		props: ['id'],
 		components: {
 			LoginRegister,
-			Message
 		},
 		computed: {
 			...mapState({
