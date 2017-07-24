@@ -1,5 +1,6 @@
 <template>
     <div class="mesege_box">
+        <popup-write></popup-write>
         <banner></banner>
         <div class="container">
             <div class="row">
@@ -27,12 +28,14 @@
 	import Banner from '../components/message/Banner.vue'
 	import MessageItem from '../components/message/MessageItem.vue'
 	import NavFooter from '../components/common/Footer.vue'
+    import PopupWrite from '../components/message/PopupWrite.vue'
 	export default {
 		name: 'comment',
 		components: {
 			Banner,
 			MessageItem,
-			NavFooter
+			NavFooter,
+			PopupWrite,
 		},
 		props: ['id'],
 		data () {

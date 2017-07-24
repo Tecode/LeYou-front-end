@@ -24,3 +24,4 @@ export const GET_LIST_ARTICLE_DATA = 'GET_LIST_ARTICLE_DATA';
 export const GET_ARTICLE_DATA = 'GET_ARTICLE_DATA';
 // Ui
 export const SET_INDEX_SIZE = 'SET_INDEX_SIZE';
+export const TOGGLE_POPUP = 'TOGGLE_POPUP';

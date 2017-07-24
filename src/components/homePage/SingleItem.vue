@@ -64,6 +64,10 @@
             padding: 15px;
             position: relative;
             cursor: pointer;
+            transition: all .3s;
+            &:hover{
+                box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3);
+            }
             .image_box {
                 background-image: url("../../imgs/demo_image.jpg");
                 background-size: cover;
