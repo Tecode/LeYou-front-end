@@ -24,6 +24,7 @@ const Article = {
 	},
 	actions: {
 		[GET_LIST_ARTICLE_DATA]({state, commit, rootState}, {index, size}){
+			commit('SET_LIST_ARTICLE_DATA', {dataList: [], total: 0});
 			getArticelListApi({index, size})
 			.then((response) => {
 				let newArr = [];

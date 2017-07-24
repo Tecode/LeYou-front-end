@@ -4,14 +4,16 @@
             <div class="pull-left clearfix">
                 <span class="pull-left">全部内容</span>
                 <i class="icon_info pull-left"></i>
-                <span class="pull-left">（202）</span>
+                <span class="pull-left">（{{total === 0 ? '加载中...' : total}}）</span>
             </div>
             <div class="pull-right">
                 <button class="more">更多</button>
             </div>
         </div>
         <div class="contents">
+            <animation-one v-if="dataList.length === 0"></animation-one>
             <single-item
+                    v-if="dataList.length > 0"
                     v-for="item in dataList"
                     :key="item.aid"
                     :item="item"></single-item>
@@ -19,6 +21,7 @@
         <div class="page-pagination text-center">
             <el-pagination
                     layout="prev, pager, next"
+                    v-if="total > 10"
                     @current-change="changePage"
                     :page-size="10"
                     :current-page="index"
@@ -31,11 +34,13 @@
 <script>
 	import SingleItem from '../homePage/SingleItem.vue';
 	import {mapMutations, mapState, mapActions} from 'vuex';
+	import AnimationOne from '../animation/AnimationOne.vue'
 
 	export default {
 		name: 'AllContents',
 		components: {
-			SingleItem
+			SingleItem,
+			AnimationOne,
 		},
 		computed: {
 			...mapState({
