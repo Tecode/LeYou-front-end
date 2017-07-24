@@ -96,6 +96,7 @@ const LoginRegistration = {
 							message: '登录成功！',
 							type: 'success'
 						});
+						commit('closePopup');
 						commit('SETUSERINFO', response.data)
 					}).catch( (err) => {
 						commit('request', {

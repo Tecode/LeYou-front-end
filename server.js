@@ -12,12 +12,12 @@ const cookieParser = require('cookie-parser');
 const mysql = require('mysql');
 let status = true;
 // 创建mysql数据库连接
-const pool  = mysql.createPool({
-	host: "119.29.249.33",
-	user: "aming",
-	password: "5101259927x",
-	database: "aming_site_db"
-});
+// const pool  = mysql.createPool({
+// 	host: "119.29.249.33",
+// 	user: "aming",
+// 	password: "5101259927x",
+// 	database: "aming_site_db"
+// });
 
 const isProd = process.env.NODE_ENV === 'production';
 const useMicroCache = process.env.MICRO_CACHE !== 'false';
@@ -86,60 +86,60 @@ app.use((req, res, next) => {
 		if (ip.substr(0, 7) === "::ffff:") {
 			ip = ip.substr(7)
 		}
-		pool.getConnection(function (err, connection) {
-			const sql = `INSERT INTO site_visit_info (platform, browser, isiPad, isiPhone,isAndroid, isMobile, isIE,
-		isFirefox,
-		isEdge,
-		isChrome,
-		isSafari,
-		isWindows,
-		isLinux,
-		isMac,
-		isUC,
-		version,
-		timestamp
-		) VALUES (
-				'${req.useragent.platform}',
-				'${req.useragent.browser}',
-				'${req.useragent.isiPad}',
-				'${req.useragent.isiPhone}',
-				'${req.useragent.isAndroid}',
-				'${req.useragent.isMobile}',
-				'${req.useragent.isIE}',
-				'${req.useragent.isFirefox}',
-				'${req.useragent.isEdge}',
-				'${req.useragent.isChrome}',
-				'${req.useragent.isSafari}',
-				'${req.useragent.isWindows}',
-				'${req.useragent.isLinux}',
-				'${req.useragent.isMac}',
-				'${req.useragent.isUC}',
-				'${req.useragent.version}',
-				'${Math.round(new Date().getTime() / 1000)}'
-				)`;
-			connection.query(sql, function (err, result, fields) {
-				connection.release();
-				if (err) throw err;
-			});
-		});
+		// pool.getConnection(function (err, connection) {
+		// 	const sql = `INSERT INTO site_visit_info (platform, browser, isiPad, isiPhone,isAndroid, isMobile, isIE,
+		// isFirefox,
+		// isEdge,
+		// isChrome,
+		// isSafari,
+		// isWindows,
+		// isLinux,
+		// isMac,
+		// isUC,
+		// version,
+		// timestamp
+		// ) VALUES (
+		// 		'${req.useragent.platform}',
+		// 		'${req.useragent.browser}',
+		// 		'${req.useragent.isiPad}',
+		// 		'${req.useragent.isiPhone}',
+		// 		'${req.useragent.isAndroid}',
+		// 		'${req.useragent.isMobile}',
+		// 		'${req.useragent.isIE}',
+		// 		'${req.useragent.isFirefox}',
+		// 		'${req.useragent.isEdge}',
+		// 		'${req.useragent.isChrome}',
+		// 		'${req.useragent.isSafari}',
+		// 		'${req.useragent.isWindows}',
+		// 		'${req.useragent.isLinux}',
+		// 		'${req.useragent.isMac}',
+		// 		'${req.useragent.isUC}',
+		// 		'${req.useragent.version}',
+		// 		'${Math.round(new Date().getTime() / 1000)}'
+		// 		)`;
+		// 	connection.query(sql, function (err, result, fields) {
+		// 		connection.release();
+		// 		if (err) throw err;
+		// 	});
+		// });
 		axios.post(`http://ip.taobao.com/service/getIpInfo.php?ip=${ip}`)
 		.then(({data}) => {
-			pool.getConnection(function (err, connection) {
-				if (err) throw err;
-				const sql = `INSERT INTO site_ip_address (country, country_id, region, city, county, ip, timestamp) VALUES (
-				'${data.data.country}',
-				'${data.data.country_id}',
-				'${data.data.region}',
-				'${data.data.city}',
-				'${data.data.county}',
-				'${data.data.ip}',
-				'${Math.round(new Date().getTime() / 1000)}'
-				)`;
-				connection.query(sql, function (err, result) {
-					connection.release();
-					if (err) throw err;
-				});
-			});
+			// pool.getConnection(function (err, connection) {
+			// 	if (err) throw err;
+			// 	const sql = `INSERT INTO site_ip_address (country, country_id, region, city, county, ip, timestamp) VALUES (
+			// 	'${data.data.country}',
+			// 	'${data.data.country_id}',
+			// 	'${data.data.region}',
+			// 	'${data.data.city}',
+			// 	'${data.data.county}',
+			// 	'${data.data.ip}',
+			// 	'${Math.round(new Date().getTime() / 1000)}'
+			// 	)`;
+			// 	connection.query(sql, function (err, result) {
+			// 		connection.release();
+			// 		if (err) throw err;
+			// 	});
+			// });
 		})
 		.catch((err) => {
 			console.log(err.response.data);
@@ -191,7 +191,7 @@ function render(req, res) {
 	}
 
 	const context = {
-		title: 'aming web site', // default title
+		title: '乐游博客-阿明的博客-站内提供资源分享', // default title
 		url: req.url
 	};
 	renderer.renderToString(context, (err, html) => {
