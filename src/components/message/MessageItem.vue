@@ -27,22 +27,56 @@
                         <span class="call pull-right">回复</span>
                     </div>
                 </div>
-            </li>
-            <li>
-                <div class="portrait_box clearfix">
-                    <div class="box_image pull-left">
-                        <img src="../../imgs/Demo_moudle.jpg" width="120px" />
-                    </div>
-                    <div class="user pull-left">
-                        <p class="name">阿明</p>
-                        <p class="date">2017-6-13 23：45
+                <ul>
+                    <li class="level_two">
+                        <div class="portrait_box clearfix">
+                            <div class="box_image pull-left">
+                                <img src="../../imgs/Demo_moudle.jpg" width="120px" />
+                            </div>
+                            <div class="user pull-left">
+                                <p class="name">阿明</p>
+                                <p class="date">2017-6-13 23：45
                             <span>回复</span>
+                                </p>
+                            </div>
+                        </div>
+                        <p class="content">
+                            换不厌的春秋和一个等不到的人，错乱我的四季。 每段旅程都会有一个你爱的人，就像双手不会主动拒绝温暖的十指紧扣。
                         </p>
-                    </div>
-                </div>
-                <p class="content">
-                    换不厌的春秋和一个等不到的人，错乱我的四季。 每段旅程都会有一个你爱的人，就像双手不会主动拒绝温暖的十指紧扣。
-                </p>
+                        <div class="write_box">
+                            <label for="write_box_level_1"></label>
+                            <textarea id="write_box_level_1"></textarea>
+                            <div class="button clearfix">
+                                <span class="tips pull-left">回复的内容不能为空且不能小于2个字符！</span>
+                                <span class="call pull-right">回复</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="level_two">
+                        <div class="portrait_box clearfix">
+                            <div class="box_image pull-left">
+                                <img src="../../imgs/Demo_moudle.jpg" width="120px" />
+                            </div>
+                            <div class="user pull-left">
+                                <p class="name">阿明</p>
+                                <p class="date">2017-6-13 23：45
+                            <span>回复</span>
+                                </p>
+                            </div>
+                        </div>
+                        <p class="content">
+                            换不厌的春秋和一个等不到的人，错乱我的四季。 每段旅程都会有一个你爱的人，就像双手不会主动拒绝温暖的十指紧扣。
+                        </p>
+                        <div class="write_box">
+                            <label for="write_box_level_1"></label>
+                            <textarea id="write_box_level_1"></textarea>
+                            <div class="button clearfix">
+                                <span class="tips pull-left">回复的内容不能为空且不能小于2个字符！</span>
+                                <span class="call pull-right">回复</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>
@@ -107,6 +141,12 @@
                     background: url("../../imgs/icon_Info_b.png")0 2px no-repeat;
                     background-size: 17px;
                 }
+            }
+        }
+        .level_two{
+            margin-left: 20px;
+            textarea {
+                width: 656px;
             }
         }
         .title_box{
