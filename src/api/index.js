@@ -27,3 +27,10 @@ export const getArticelApi = (id) => {
 export const getUserInfoApi = (param) => {
 	return axios.get('/application/api/userInfo');
 };
+// 留言
+export const leavingMessageApi = (param) => {
+	return axios.post('/application/api/leavingMessage', param);
+};
+export const getLeavingMessageApi = (param) => {
+	return axios.get('/application/api/getLeavingMessage', param);
+};

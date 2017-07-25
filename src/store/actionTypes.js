@@ -25,3 +25,7 @@ export const GET_ARTICLE_DATA = 'GET_ARTICLE_DATA';
 // Ui
 export const SET_INDEX_SIZE = 'SET_INDEX_SIZE';
 export const TOGGLE_POPUP = 'TOGGLE_POPUP';
+// LivingMesege
+export const LIVING_MESSEGE_POST = 'LIVING_MESSEGE_POST';
+export const INPUT_LIVING_MESSEGE = 'INPUT_LIVING_MESSEGE';
+export const CLEAN_DATA = 'CLEAN_DATA';
