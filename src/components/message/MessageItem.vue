@@ -7,72 +7,44 @@
             <li>
                 <div class="portrait_box clearfix">
                     <div class="box_image pull-left">
-                        <img src="../../imgs/Demo_moudle.jpg" width="120px" />
+                        <img src="../../imgs/Demo_moudle.jpg" width="120px"/>
                     </div>
                     <div class="user pull-left">
-                        <p class="name">阿明</p>
-                        <p class="date">2017-6-13 23：45
-                            <span>回复</span>
+                        <p class="name">{{item.name}}</p>
+                        <p class="date">{{item.dateTime}}
+                            <span @click="reply(item.id)">回复</span>
                         </p>
                     </div>
                 </div>
-                <p class="content">
-                    换不厌的春秋和一个等不到的人，错乱我的四季。 每段旅程都会有一个你爱的人，就像双手不会主动拒绝温暖的十指紧扣。
-                </p>
-                <div class="write_box">
-                    <label for="write_box"></label>
-                    <textarea id="write_box"></textarea>
+                <p class="content">{{item.messege}}</p>
+                <div class="write_box" v-if="activeId === item.id">
+                    <label v-bind:for="item.id"></label>
+                    <textarea autofocus="autofocus" v-bind:id="item.id" v-model="messege" @input="inoutLivingMessege"></textarea>
                     <div class="button clearfix">
                         <span class="tips pull-left">回复的内容不能为空且不能小于2个字符！</span>
-                        <span class="call pull-right">回复</span>
+                        <span class="call pull-right" @click="replyMessegePost({parentId: item.id, beAnswered: item.name})">回复</span>
                     </div>
                 </div>
-                <ul>
-                    <li class="level_two">
+                <ul class="level_two_ul">
+                    <li class="level_two" v-for="value in item.content">
                         <div class="portrait_box clearfix">
                             <div class="box_image pull-left">
-                                <img src="../../imgs/Demo_moudle.jpg" width="120px" />
+                                <img src="../../imgs/Demo_moudle.jpg" width="120px"/>
                             </div>
                             <div class="user pull-left">
-                                <p class="name">阿明</p>
-                                <p class="date">2017-6-13 23：45
-                            <span>回复</span>
+                                <p class="name">{{value.name}}</p>
+                                <p class="date">{{value.dateTime}}
+                            <span @click="reply(value.id)">回复</span>
                                 </p>
                             </div>
                         </div>
-                        <p class="content">
-                            换不厌的春秋和一个等不到的人，错乱我的四季。 每段旅程都会有一个你爱的人，就像双手不会主动拒绝温暖的十指紧扣。
-                        </p>
-                        <div class="write_box">
-                            <label for="write_box_level_1"></label>
-                            <textarea id="write_box_level_1"></textarea>
+                        <p class="content">{{value.messege}}</p>
+                        <div class="write_box" v-if="activeId === value.id">
+                            <label v-bind:for="value.id"></label>
+                            <textarea autofocus="autofocus" v-model="messege" v-bind:id="value.id" @input="inoutLivingMessege"></textarea>
                             <div class="button clearfix">
                                 <span class="tips pull-left">回复的内容不能为空且不能小于2个字符！</span>
-                                <span class="call pull-right">回复</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="level_two">
-                        <div class="portrait_box clearfix">
-                            <div class="box_image pull-left">
-                                <img src="../../imgs/Demo_moudle.jpg" width="120px" />
-                            </div>
-                            <div class="user pull-left">
-                                <p class="name">阿明</p>
-                                <p class="date">2017-6-13 23：45
-                            <span>回复</span>
-                                </p>
-                            </div>
-                        </div>
-                        <p class="content">
-                            换不厌的春秋和一个等不到的人，错乱我的四季。 每段旅程都会有一个你爱的人，就像双手不会主动拒绝温暖的十指紧扣。
-                        </p>
-                        <div class="write_box">
-                            <label for="write_box_level_1"></label>
-                            <textarea id="write_box_level_1"></textarea>
-                            <div class="button clearfix">
-                                <span class="tips pull-left">回复的内容不能为空且不能小于2个字符！</span>
-                                <span class="call pull-right">回复</span>
+                                <span class="call pull-right" @click="replyMessegePost({parentId: item.id, beAnswered: value.name})">回复</span>
                             </div>
                         </div>
                     </li>
@@ -83,26 +55,44 @@
 </template>
 
 <script>
+	import {mapMutations, mapState, mapActions} from 'vuex';
 	export default {
-		name: 'comment',
-		props: ['id'],
-		data () {
-			return {
-				open: true
-			}
+		name: 'msg-item',
+		props: {
+			item: [Object],
+            index: [Number]
 		},
-		computed: {},
-		methods: {}
+		computed: {
+			...mapState({
+				messege: state => state.LivingMessege.messege,
+				activeId: state => state.LivingMessege.activeId,
+			}),
+		},
+		methods: {
+			closePopup: function () {
+				this.togglePopup({popupShow: false});
+				this.clearData({moudle: 'messege', data: ''});
+			},
+			...mapMutations({
+				inoutLivingMessege: 'INPUT_LIVING_MESSEGE',
+				clearData: 'CLEAN_DATA',
+				reply: 'REPLY_MESSEGE_INFO',
+			}),
+			...mapActions({
+			    replyMessegePost: 'REPLY_MESSEGE_POST',
+			})
+		}
 	}
 </script>
 
 <style lang="less" scoped>
     @import "../../lib/style/color";
-    .message_item{
-        .write_box{
+
+    .message_item {
+        .write_box {
             max-width: 680px;
             margin: 20px 0;
-            textarea{
+            textarea {
                 width: 676px;
                 margin-left: 4px;
                 resize: none;
@@ -116,49 +106,52 @@
                 text-indent: .5em;
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             }
-            .button{
+            .button {
                 margin: 10px 0;
-                .call{
+                .call {
                     color: @background-color50;
                     border: 1px solid @background-color50;
                     padding: 2px 15px 2px 30px;
                     border-radius: @border-radius6;
-                    background: url("../../imgs/icon_paperplane_w.png")10px 4px no-repeat;
+                    background: url("../../imgs/icon_paperplane_w.png") 10px 4px no-repeat;
                     background-size: 16px;
                     cursor: pointer;
                     transition: all .2s;
-                    &:hover{
-                        background: url("../../imgs/icon_paperplane_black.png")10px 4px no-repeat;
+                    &:hover {
+                        background: url("../../imgs/icon_paperplane_black.png") 10px 4px no-repeat;
                         background-size: 16px;
                         background-color: @background-color50;
                         color: #24283b;
                     }
                 }
-                .tips{
+                .tips {
                     margin-left: 4px;
                     margin-top: 2px;
                     padding-left: 20px;
-                    background: url("../../imgs/icon_Info_b.png")0 2px no-repeat;
+                    background: url("../../imgs/icon_Info_b.png") 0 2px no-repeat;
                     background-size: 17px;
                 }
             }
         }
-        .level_two{
+        .level_two_ul{
+            margin-top: 15px;
+        }
+        .level_two {
             margin-left: 20px;
             textarea {
                 width: 656px;
             }
         }
-        .title_box{
+        .title_box {
             position: relative;
-            .bliuld{
+            .bliuld {
                 position: absolute;
                 left: -65px;
                 top: .3em;
                 color: #ff7300;
                 font-size: 16px;
             }
-            &:before{
+            &:before {
                 content: "";
                 display: block;
                 position: absolute;
@@ -172,39 +165,39 @@
                 border: 4px solid #ff7300;
             }
         }
-        .title{
+        .title {
             font-size: 22px;
             font-weight: 400;
         }
-        ul li{
+        ul li {
             font-size: 14px;
             margin-bottom: 25px;
         }
-        .portrait_box{
-            .box_image{
+        .portrait_box {
+            .box_image {
                 width: 46px;
                 height: 46px;
                 border-radius: 50%;
                 overflow: hidden;
             }
-            .user{
+            .user {
                 margin-left: 15px;
-                p{
+                p {
                     line-height: 1.5em;
                     color: @text100;
                 }
-                .name{
+                .name {
                     font-size: 16px;
                 }
-                .date{
-                    span{
+                .date {
+                    span {
                         color: @color808;
                         cursor: pointer;
                     }
                 }
             }
         }
-        .content{
+        .content {
             color: @text100;
             line-height: 1.5em;
             padding: 10px 0 0 4px;

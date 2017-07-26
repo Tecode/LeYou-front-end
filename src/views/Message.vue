@@ -5,11 +5,8 @@
         <div class="container">
             <div class="row">
                 <ul class="col-md-7 col-md-offset-3 line">
-                    <li>
-                        <message-item></message-item>
-                    </li>
-                    <li>
-                        <message-item></message-item>
+                    <li v-for="(item, index) in contentList">
+                        <message-item :item=item :index="index"></message-item>
                     </li>
                 </ul>
             </div>
@@ -28,7 +25,9 @@
 	import Banner from '../components/message/Banner.vue'
 	import MessageItem from '../components/message/MessageItem.vue'
 	import NavFooter from '../components/common/Footer.vue'
-    import PopupWrite from '../components/message/PopupWrite.vue'
+	import PopupWrite from '../components/message/PopupWrite.vue'
+	import {mapState} from 'vuex';
+
 	export default {
 		name: 'comment',
 		components: {
@@ -38,13 +37,11 @@
 			PopupWrite,
 		},
 		props: ['id'],
-		data () {
-			return {
-				open: true
-			}
+		computed: {
+			...mapState({
+			    contentList: state => state.LivingMessege.contentList,
+			}),
 		},
-		computed: {},
-		methods: {}
 	}
 </script>
 
