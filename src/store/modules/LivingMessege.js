@@ -160,8 +160,7 @@ const LivingMessege = {
 					commit('CLEAN_DATA', {moudle: 'activeId', data: ''});
 				}).catch((err) => {
 					Message({
-						showClose: false,
-						message: err.response.data.msg,
+						message: err && err.response.data.msg,
 						type: 'error'
 					});
 				})

@@ -126,17 +126,17 @@
             max-width: 680px;
             margin: 20px 0;
             textarea {
+                padding-top: 2.5em;
                 width: 676px;
                 margin-left: 4px;
                 resize: none;
                 height: 100px;
                 outline: none;
                 font-size: 14px;
-                padding-top: 8px;
                 border: 1px solid @color204;
                 color: #223343;
                 border-radius: 8px;
-                text-indent: 6.2em;
+                text-indent: 1em;
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             }
             .button {
