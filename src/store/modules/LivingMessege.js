@@ -3,10 +3,15 @@ import {
 	LIVING_MESSEGE_POST,
 	CLEAN_DATA,
 	REPLY_MESSEGE_INFO,
-	REPLY_MESSEGE_POST
+	REPLY_MESSEGE_POST,
+	GET_MESSEGE_INFO_LIST
 } from '../actionTypes';
 import {Message} from 'element-ui';
-import {leavingMessageApi} from '../../api';
+import {
+	leavingMessageApi,
+	replyMessageApi,
+	getLeavingMessageApi
+} from '../../api';
 
 const LivingMessege = {
 	state: {
@@ -90,7 +95,10 @@ const LivingMessege = {
 					type: 'error'
 				});
 			} else {
-				leavingMessageApi({name: rootState.NavHeader.userInfo.user_name, message: state.message}).then((response) => {
+				leavingMessageApi({
+					name: rootState.NavHeader.userInfo.user_name,
+					imgUrl: '',
+					content: state.messege}).then((response) => {
 					Message({
 						showClose: false,
 						message: '留言成功，谢谢！',
@@ -108,26 +116,28 @@ const LivingMessege = {
 			}
 		},
 		[REPLY_MESSEGE_POST]({state, commit, rootState}, {parentId, beAnswered}){
-			console.log(rootState.NavHeader.userInfo.user_name);
-			console.log(state.messege, state.messege === '');
-			console.log(parentId, beAnswered);
 			if (state.messege === '') {
 				Message({
 					showClose: false,
 					message: '内容不能为空！',
 					type: 'error'
 				});
-			} else if (state.messege.length > 200) {
+			} else if (state.messege.length > 240) {
 				Message({
 					showClose: false,
-					message: '内容不能超过200个字符！',
+					message: '内容不能超过240个字符！',
 					type: 'error'
 				});
 			} else {
-				leavingMessageApi({name: rootState.NavHeader.userInfo.user_name, message: state.message}).then((response) => {
+				replyMessageApi({
+					name: rootState.NavHeader.userInfo.user_name,
+					content: state.messege,
+					parentId,
+					beAnswered
+				}).then((response) => {
 					Message({
 						showClose: false,
-						message: '留言成功，谢谢！',
+						message: '回复成功，谢谢！',
 						type: 'success'
 					});
 					let newArr = [];
@@ -135,11 +145,11 @@ const LivingMessege = {
 						if (item.id === parentId) {
 							item.content.push(
 							{
-								id: 10009,
+								id: response.data.id,
 								name: '阿敏',
 								imgUrl: '',
 								messege: state.messege,
-								dateTime: '2017-6-13 23：55',
+								dateTime: response.data.time,
 							}
 							);
 						}
@@ -151,12 +161,26 @@ const LivingMessege = {
 				}).catch((err) => {
 					Message({
 						showClose: false,
-						message: err.response.data.messege,
+						message: err.response.data.msg,
 						type: 'error'
 					});
 				})
 			}
 		},
+		[GET_MESSEGE_INFO_LIST]({state, commit, rootState}, {index, size}) {
+			console.log(index, size);
+			getLeavingMessageApi({index, size})
+			.then(({data}) => {
+				commit('CLEAN_DATA', {moudle: 'contentList', data: data.data});
+			})
+			.catch((err) => {
+				Message({
+					showClose: false,
+					message: err.response.data.msg,
+					type: 'error'
+				});
+			})
+		}
 	}
 };
 

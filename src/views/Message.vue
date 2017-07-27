@@ -26,7 +26,7 @@
 	import MessageItem from '../components/message/MessageItem.vue'
 	import NavFooter from '../components/common/Footer.vue'
 	import PopupWrite from '../components/message/PopupWrite.vue'
-	import {mapState} from 'vuex';
+	import {mapMutations, mapState, mapActions} from 'vuex';
 
 	export default {
 		name: 'comment',
@@ -39,9 +39,22 @@
 		props: ['id'],
 		computed: {
 			...mapState({
-			    contentList: state => state.LivingMessege.contentList,
+				contentList: state => state.LivingMessege.contentList,
+				index: state => state.Ui.index,
+				size: state => state.Ui.size,
 			}),
 		},
+		methods: {
+			...mapActions({
+				getMessageListData: 'GET_MESSEGE_INFO_LIST',
+			}),
+			...mapMutations({
+				setIndex: 'SET_INDEX_SIZE',
+            })
+		},
+		created: function () {
+			this.getMessageListData({index: this.index, size: this.size})
+		}
 	}
 </script>
 

@@ -31,6 +31,10 @@ export const getUserInfoApi = (param) => {
 export const leavingMessageApi = (param) => {
 	return axios.post('/application/api/leavingMessage', param);
 };
-export const getLeavingMessageApi = (param) => {
-	return axios.get('/application/api/getLeavingMessage', param);
+// 获取留言内容
+export const getLeavingMessageApi = ({index, size}) => {
+	return axios.get('/application/api/getLeavingMessage', {params:{index :index, size: size}});
+};
+export const replyMessageApi = (param) => {
+	return axios.post('/application/api/replyMessage', param);
 };

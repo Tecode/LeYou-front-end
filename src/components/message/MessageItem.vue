@@ -18,11 +18,14 @@
                 </div>
                 <p class="content">{{item.messege}}</p>
                 <div class="write_box" v-if="activeId === item.id">
+                    <div contenteditable="false" class="reply_person">回复 {{item.name}}：</div>
                     <label v-bind:for="item.id"></label>
-                    <textarea autofocus="autofocus" v-bind:id="item.id" v-model="messege" @input="inoutLivingMessege"></textarea>
+                    <textarea autofocus="autofocus" v-bind:id="item.id" v-model="messege"
+                              @input="inoutLivingMessege"></textarea>
                     <div class="button clearfix">
                         <span class="tips pull-left">回复的内容不能为空且不能小于2个字符！</span>
-                        <span class="call pull-right" @click="replyMessegePost({parentId: item.id, beAnswered: item.name})">回复</span>
+                        <span class="call pull-right"
+                              @click="replyMessegePost({parentId: item.id, beAnswered: item.name})">回复</span>
                     </div>
                 </div>
                 <ul class="level_two_ul">
@@ -40,11 +43,14 @@
                         </div>
                         <p class="content">{{value.messege}}</p>
                         <div class="write_box" v-if="activeId === value.id">
+                            <div contenteditable="false" class="reply_person">回复 {{value.name}}：</div>
                             <label v-bind:for="value.id"></label>
-                            <textarea autofocus="autofocus" v-model="messege" v-bind:id="value.id" @input="inoutLivingMessege"></textarea>
+                            <textarea autofocus="autofocus" v-model="messege" v-bind:id="value.id"
+                                      @input="inoutLivingMessege"></textarea>
                             <div class="button clearfix">
                                 <span class="tips pull-left">回复的内容不能为空且不能小于2个字符！</span>
-                                <span class="call pull-right" @click="replyMessegePost({parentId: item.id, beAnswered: value.name})">回复</span>
+                                <span class="call pull-right"
+                                      @click="replyMessegePost({parentId: item.id, beAnswered: value.name})">回复</span>
                             </div>
                         </div>
                     </li>
@@ -56,11 +62,12 @@
 
 <script>
 	import {mapMutations, mapState, mapActions} from 'vuex';
+	import {MessageBox} from 'element-ui';
 	export default {
 		name: 'msg-item',
 		props: {
 			item: [Object],
-            index: [Number]
+			index: [Number]
 		},
 		computed: {
 			...mapState({
@@ -69,14 +76,33 @@
 			}),
 		},
 		methods: {
+			reply: function (id) {
+				if (this.activeId === '' && this.activeId !== id) {
+					this.replyShowBox(id);
+				} else if (this.activeId !== id) {
+					if (this.activeId !== id) {
+						MessageBox.confirm('确定要放弃正在编辑的评论, 是否继续?', '提示', {
+							confirmButtonText: '确定',
+							cancelButtonText: '取消',
+							type: 'warning'
+						}).then(() => {
+//                  '删除成功!'
+						this.replyShowBox(id);
+						}).catch(() => {
+//					message: '已取消删除'
+						});
+					}
+				}
+			},
 			closePopup: function () {
 				this.togglePopup({popupShow: false});
 				this.clearData({moudle: 'messege', data: ''});
-			},
+			}
+			,
 			...mapMutations({
 				inoutLivingMessege: 'INPUT_LIVING_MESSEGE',
 				clearData: 'CLEAN_DATA',
-				reply: 'REPLY_MESSEGE_INFO',
+				replyShowBox: 'REPLY_MESSEGE_INFO',
 			}),
 			...mapActions({
 			    replyMessegePost: 'REPLY_MESSEGE_POST',
@@ -90,6 +116,13 @@
 
     .message_item {
         .write_box {
+            position: relative;
+            .reply_person {
+                position: absolute;
+                top: .6em;
+                left: 1.2em;
+                color: #808080;
+            }
             max-width: 680px;
             margin: 20px 0;
             textarea {
@@ -103,7 +136,7 @@
                 border: 1px solid @color204;
                 color: #223343;
                 border-radius: 8px;
-                text-indent: .5em;
+                text-indent: 6.2em;
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
             }
             .button {
@@ -133,7 +166,7 @@
                 }
             }
         }
-        .level_two_ul{
+        .level_two_ul {
             margin-top: 15px;
         }
         .level_two {
