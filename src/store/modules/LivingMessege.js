@@ -14,6 +14,18 @@ import {
 	getLeavingMessageApi
 } from '../../api';
 
+const getListAgin = ({index, size}) => {
+	return new Promise(function (resolve, reject) {
+		getLeavingMessageApi({index, size})
+		.then(({data}) => {
+			resolve(data);
+		})
+		.catch((err) => {
+			reject(err);
+		});
+	});
+};
+
 const LivingMessege = {
 	state: {
 		messege: '',
@@ -57,7 +69,6 @@ const LivingMessege = {
 				});
 			} else {
 				commit('CLEAN_DATA', {moudle: 'loading', data: true});
-				commit('CLEAN_DATA', {moudle: 'contentList', data: []});
 				leavingMessageApi({
 					name: rootState.NavHeader.userInfo.user_name,
 					imgUrl: '',
@@ -72,9 +83,19 @@ const LivingMessege = {
 					commit('TOGGLE_POPUP', {popupShow: false});
 					commit('CLEAN_DATA', {moudle: 'messege', data: ''});
 					// 重新获取留言列表
-					commit('GET_MESSEGE_INFO_LIST', {
-						index:rootState.Ui.index,
-						size:rootState.Ui.size,
+					commit('CLEAN_DATA', {moudle: 'contentList', data: []});
+					getListAgin({
+						index: rootState.Ui.index,
+						size: rootState.Ui.size,
+					}).then((data) => {
+						commit('CLEAN_DATA', {moudle: 'contentList', data: data.data});
+						commit('CLEAN_DATA', {moudle: 'total', data: data.total});
+					}).catch(() => {
+						Message({
+							showClose: false,
+							message: err.response.data.msg,
+							type: 'error'
+						});
 					});
 				}).catch((err) => {
 					Message({
@@ -140,6 +161,7 @@ const LivingMessege = {
 			}
 		},
 		[GET_MESSEGE_INFO_LIST]({state, commit, rootState}, {index, size}) {
+			commit('CLEAN_DATA', {moudle: 'contentList', data: []});
 			getLeavingMessageApi({index, size})
 			.then(({data}) => {
 				commit('CLEAN_DATA', {moudle: 'contentList', data: data.data});
