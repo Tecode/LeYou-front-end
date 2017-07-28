@@ -24,8 +24,9 @@
                               @input="inoutLivingMessege"></textarea>
                     <div class="button clearfix">
                         <span class="tips pull-left">回复的内容不能为空且不能小于2个字符！</span>
-                        <span class="call pull-right"
+                        <span v-if="!load" class="call pull-right"
                               @click="replyMessegePost({parentId: item.id, beAnswered: item.name})">回复</span>
+                        <span class="loading pull-right" v-if="load">请稍后...</span>
                     </div>
                 </div>
                 <ul class="level_two_ul">
@@ -37,7 +38,7 @@
                             <div class="user pull-left">
                                 <p class="name">{{value.name}} <span class="reply_text">回复</span> {{value.beAnswered}}</p>
                                 <p class="date">{{value.dateTime}}
-                            <span @click="reply(value.id)">回复</span>
+                                <span @click="reply(value.id)">回复</span>
                                 </p>
                             </div>
                         </div>
@@ -49,8 +50,9 @@
                                       @input="inoutLivingMessege"></textarea>
                             <div class="button clearfix">
                                 <span class="tips pull-left">回复的内容不能为空且不能小于2个字符！</span>
-                                <span class="call pull-right"
+                                <span v-if="!load" class="call pull-right"
                                       @click="replyMessegePost({parentId: item.id, beAnswered: value.name})">回复</span>
+                                <span class="loading pull-right" v-if="load">请稍后...</span>
                             </div>
                         </div>
                     </li>
@@ -73,6 +75,7 @@
 			...mapState({
 				messege: state => state.LivingMessege.messege,
 				activeId: state => state.LivingMessege.activeId,
+				load: state => state.LivingMessege.loading,
 			}),
 		},
 		methods: {
@@ -115,6 +118,15 @@
     @import "../../lib/style/color";
 
     .message_item {
+        .loading{
+            color: @color808;
+            border: 1px solid @color808;
+            padding: 2px 15px 2px 15px;
+            border-radius: @border-radius6;
+            background-size: 16px;
+            background-color: @white100;
+            cursor: not-allowed;
+        }
         .write_box {
             position: relative;
             .reply_person {
@@ -126,8 +138,8 @@
             max-width: 680px;
             margin: 20px 0;
             textarea {
-                padding-top: 2.5em;
-                width: 676px;
+                padding: 2.5em .6em 0 .6em;
+                width: 656px;
                 margin-left: 4px;
                 resize: none;
                 height: 100px;
@@ -176,7 +188,7 @@
         .level_two {
             margin-left: 20px;
             textarea {
-                width: 656px;
+                width: 636px;
             }
         }
         .title_box {

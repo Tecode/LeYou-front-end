@@ -4,7 +4,8 @@
         <banner></banner>
         <div class="container">
             <div class="row">
-                <ul class="col-md-7 col-md-offset-3 line">
+                <animation-one v-if="contentList.length === 0"></animation-one>
+                <ul class="col-md-7 col-md-offset-3 line" v-if="contentList.length > 0">
                     <li v-for="(item, index) in contentList">
                         <message-item :item=item :index="index"></message-item>
                     </li>
@@ -13,7 +14,11 @@
             <div class="page-pagination text-center">
                 <el-pagination
                         layout="prev, pager, next"
-                        :total="50">
+                        v-if="total > 39"
+                        @current-change="changePage"
+                        :page-size="40"
+                        :current-page="index"
+                        :total="total">
                 </el-pagination>
             </div>
         </div>
@@ -27,6 +32,7 @@
 	import NavFooter from '../components/common/Footer.vue'
 	import PopupWrite from '../components/message/PopupWrite.vue'
 	import {mapMutations, mapState, mapActions} from 'vuex';
+	import AnimationOne from '../components/animation/AnimationOne.vue'
 
 	export default {
 		name: 'comment',
@@ -35,28 +41,40 @@
 			MessageItem,
 			NavFooter,
 			PopupWrite,
+			AnimationOne
 		},
 		props: ['id'],
 		computed: {
 			...mapState({
 				contentList: state => state.LivingMessege.contentList,
+				total: state => state.LivingMessege.total,
 				index: state => state.Ui.index,
 				size: state => state.Ui.size,
 			}),
 		},
 		methods: {
+			changePage: function (val) {
+				this.setIndex({index: val, size: 40});
+				this.getMessageListData({
+					index: this.index,
+					size: this.size,
+				});
+			},
 			...mapActions({
 				getMessageListData: 'GET_MESSEGE_INFO_LIST',
 			}),
 			...mapMutations({
 				setIndex: 'SET_INDEX_SIZE',
+				resetStore: 'RESET_LIVING_MESSEGE',
 			})
 		},
 		created: function () {
+			this.setIndex({index: 1, size: 40});
 			this.getMessageListData({index: this.index, size: this.size})
 		},
 		beforeDestroy: function () {
 			this.setIndex({index: 1, size: 10});
+			this.resetStore();
 		}
 	}
 </script>

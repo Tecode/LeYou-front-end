@@ -7,7 +7,7 @@
                     <h3 class="text-center">{{currentStatus}}好，欢迎留言与反馈</h3>
                     <p class="text-center">提示：只有用户处于登录状态才可以留言反馈</p>
                     <div class="text-center">
-                        <button class="living_button" @click="togglePopup({popupShow: true})">我也说一句</button>
+                        <button class="living_button" @click=" messegeAlert">我也说一句</button>
                     </div>
                 </div>
             </div>
@@ -19,7 +19,8 @@
 	import moment from 'moment';
 	moment.locale('zh-cn');
 	import MessageItem from '../../components/message/MessageItem.vue'
-	import {mapMutations} from 'vuex';
+	import {mapMutations, mapState, mapActions} from 'vuex';
+	import {Message} from 'element-ui';
 
 	export default {
 		name: 'banner',
@@ -40,10 +41,26 @@
 			}, 1000);
 		},
 		methods: {
+			messegeAlert: function () {
+				if (this.name && this.name !== '') {
+					this.togglePopup({popupShow: true})
+				} else {
+					Message({
+						showClose: false,
+						message: 'Sorry，请登录以后再留言！',
+						type: 'error'
+					});
+				}
+			},
 			...mapMutations({
-			    togglePopup: 'TOGGLE_POPUP',
+				togglePopup: 'TOGGLE_POPUP',
 			})
-		}
+		},
+		computed: {
+			...mapState({
+				name: state => state.NavHeader.userInfo.user_name
+			}),
+		},
 	}
 </script>
 

@@ -4,7 +4,8 @@ import {
 	CLEAN_DATA,
 	REPLY_MESSEGE_INFO,
 	REPLY_MESSEGE_POST,
-	GET_MESSEGE_INFO_LIST
+	GET_MESSEGE_INFO_LIST,
+	RESET_LIVING_MESSEGE
 } from '../actionTypes';
 import {Message} from 'element-ui';
 import {
@@ -17,7 +18,9 @@ const LivingMessege = {
 	state: {
 		messege: '',
 		activeId: '',
-		contentList: []
+		contentList: [],
+		total: 0,
+		loading: false,
 	},
 	mutations: {
 		[INPUT_LIVING_MESSEGE](state, event){
@@ -29,12 +32,17 @@ const LivingMessege = {
 		[REPLY_MESSEGE_INFO](state, id) {
 			console.log(id);
 			state.activeId = id;
+		},
+		[RESET_LIVING_MESSEGE](state) {
+			state.messege = '';
+			state.activeId = '';
+			state.contentList = [];
+			state.total = 0;
+			state.loding = false;
 		}
 	},
 	actions: {
 		[LIVING_MESSEGE_POST]({state, commit, rootState}, value){
-			console.log(rootState.NavHeader.userInfo.user_name);
-			console.log(state.messege, state.messege === '');
 			if (state.messege === '') {
 				Message({
 					showClose: false,
@@ -48,10 +56,14 @@ const LivingMessege = {
 					type: 'error'
 				});
 			} else {
+				commit('CLEAN_DATA', {moudle: 'loading', data: true});
+				commit('CLEAN_DATA', {moudle: 'contentList', data: []});
 				leavingMessageApi({
 					name: rootState.NavHeader.userInfo.user_name,
 					imgUrl: '',
-					content: state.messege}).then((response) => {
+					content: state.messege
+				}).then((response) => {
+					commit('CLEAN_DATA', {moudle: 'loading', data: false});
 					Message({
 						showClose: false,
 						message: '留言成功，谢谢！',
@@ -59,12 +71,18 @@ const LivingMessege = {
 					});
 					commit('TOGGLE_POPUP', {popupShow: false});
 					commit('CLEAN_DATA', {moudle: 'messege', data: ''});
+					// 重新获取留言列表
+					commit('GET_MESSEGE_INFO_LIST', {
+						index:rootState.Ui.index,
+						size:rootState.Ui.size,
+					});
 				}).catch((err) => {
 					Message({
 						showClose: false,
 						message: err.response.data.messege,
 						type: 'error'
 					});
+					commit('CLEAN_DATA', {moudle: 'loading', data: false});
 				})
 			}
 		},
@@ -82,6 +100,7 @@ const LivingMessege = {
 					type: 'error'
 				});
 			} else {
+				commit('CLEAN_DATA', {moudle: 'loading', data: true});
 				replyMessageApi({
 					name: rootState.NavHeader.userInfo.user_name,
 					content: state.messege,
@@ -93,6 +112,7 @@ const LivingMessege = {
 						message: '回复成功，谢谢！',
 						type: 'success'
 					});
+					commit('CLEAN_DATA', {moudle: 'loading', data: false});
 					let newArr = [];
 					state.contentList.forEach((item) => {
 						if (item.id === parentId) {
@@ -103,8 +123,7 @@ const LivingMessege = {
 								imgUrl: '',
 								messege: state.messege,
 								dateTime: response.data.time,
-							}
-							);
+							});
 						}
 						newArr = [...newArr, item]
 					});
@@ -116,14 +135,15 @@ const LivingMessege = {
 						message: err && err.response.data.msg,
 						type: 'error'
 					});
+					commit('CLEAN_DATA', {moudle: 'loading', data: false});
 				})
 			}
 		},
 		[GET_MESSEGE_INFO_LIST]({state, commit, rootState}, {index, size}) {
-			console.log(index, size);
 			getLeavingMessageApi({index, size})
 			.then(({data}) => {
 				commit('CLEAN_DATA', {moudle: 'contentList', data: data.data});
+				commit('CLEAN_DATA', {moudle: 'total', data: data.total});
 			})
 			.catch((err) => {
 				Message({

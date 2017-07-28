@@ -11,7 +11,8 @@
                 <textarea id="write_box" v-model="messege" @input="inoutLivingMessege"></textarea>
                 <div class="button clearfix">
                     <span class="tips pull-left">回复的内容不能为空且不能小于2个字符！</span>
-                    <span class="call pull-right" @click="livingMessegePost">提交</span>
+                    <span class="call pull-right" v-if="!load" @click="livingMessegePost">提交</span>
+                    <span class="loading pull-right" v-if="load">请稍后...</span>
                 </div>
             </div>
         </div>
@@ -26,6 +27,7 @@
 			...mapState({
 				popupShow: state => state.Ui.popupShow,
 				messege: state => state.LivingMessege.messege,
+				load: state => state.LivingMessege.loading,
 			}),
 		},
 		methods: {
@@ -47,7 +49,15 @@
 
 <style lang="less" scoped>
     @import "../../lib/style/color";
-
+    .loading{
+        color: @color808;
+        border: 1px solid @color808;
+        padding: 2px 15px 2px 15px;
+        border-radius: @border-radius6;
+        background-size: 16px;
+        background-color: @white100;
+        cursor: not-allowed;
+    }
     .mask {
         background-color: rgba(0, 0, 0, 0.5);
         position: fixed;
