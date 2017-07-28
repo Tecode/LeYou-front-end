@@ -56,7 +56,7 @@
 			this.getMessageListData({index: this.index, size: this.size})
 		},
 		beforeDestroy: function () {
-			this.setIndexSize({index: 1, size: 10});
+			this.setIndex({index: 1, size: 10});
 		}
 	}
 </script>
