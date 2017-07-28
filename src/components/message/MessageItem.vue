@@ -1,7 +1,7 @@
 <template>
     <div class="message_item">
         <div class="clearfix title_box">
-            <p class="bliuld">1楼</p>
+            <p class="bliuld">{{item.index}}楼</p>
         </div>
         <ul>
             <li>
@@ -35,7 +35,7 @@
                                 <img src="../../imgs/Demo_moudle.jpg" width="120px"/>
                             </div>
                             <div class="user pull-left">
-                                <p class="name">{{value.name}}</p>
+                                <p class="name">{{value.name}} <span class="reply_text">回复</span> {{value.beAnswered}}</p>
                                 <p class="date">{{value.dateTime}}
                             <span @click="reply(value.id)">回复</span>
                                 </p>
@@ -168,6 +168,10 @@
         }
         .level_two_ul {
             margin-top: 15px;
+            .reply_text{
+                font-size: 14px;
+                color: #ff7300;
+            }
         }
         .level_two {
             margin-left: 20px;
@@ -179,7 +183,7 @@
             position: relative;
             .bliuld {
                 position: absolute;
-                left: -65px;
+                left: -85px;
                 top: .3em;
                 color: #ff7300;
                 font-size: 16px;

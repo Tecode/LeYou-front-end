@@ -17,54 +17,7 @@ const LivingMessege = {
 	state: {
 		messege: '',
 		activeId: '',
-		contentList: [
-			{
-				id: 10003,
-				name: '阿明',
-				imgUrl: '',
-				messege: '换不厌的春秋和一个等不到的人，错乱我的四季。 每段旅程都会有一个你爱的人，就像双手不会主动拒绝温暖的十指紧扣。',
-				dateTime: '2017-7-13 23：45',
-				content: [
-					{
-						id: 10004,
-						name: '小红',
-						imgUrl: '',
-						messege: '换不厌的春秋和一个等不到的人，错乱我的四季。 每段旅程都会有一个你爱的人，就像双手不会主动拒绝温暖的十指紧扣。',
-						dateTime: '2017-12-13 23：49',
-					},
-					{
-						id: 10009,
-						name: '阿敏',
-						imgUrl: '',
-						messege: '换不厌的春秋和一个等不到的人，错乱我的四季。 每段旅程都会有一个你爱的人，就像双手不会主动拒绝温暖的十指紧扣。',
-						dateTime: '2017-6-13 23：55',
-					}
-				]
-			},
-			{
-				id: 10003,
-				name: '阿明',
-				imgUrl: '',
-				messege: '换不厌的春秋和一个等不到的人，错乱我的四季。 每段旅程都会有一个你爱的人，就像双手不会主动拒绝温暖的十指紧扣。',
-				dateTime: '2017-6-13 23：45',
-				content: [
-					{
-						id: 10004,
-						name: '小红',
-						imgUrl: '',
-						messege: '换不厌的春秋和一个等不到的人，错乱我的四季。 每段旅程都会有一个你爱的人，就像双手不会主动拒绝温暖的十指紧扣。',
-						dateTime: '2017-6-13 23：49',
-					},
-					{
-						id: 10009,
-						name: '阿敏',
-						imgUrl: '',
-						messege: '换不厌的春秋和一个等不到的人，错乱我的四季。 每段旅程都会有一个你爱的人，就像双手不会主动拒绝温暖的十指紧扣。',
-						dateTime: '2017-6-13 23：55',
-					}
-				]
-			}
-		]
+		contentList: []
 	},
 	mutations: {
 		[INPUT_LIVING_MESSEGE](state, event){
@@ -146,7 +99,7 @@ const LivingMessege = {
 							item.content.push(
 							{
 								id: response.data.id,
-								name: '阿敏',
+								name: response.data.name,
 								imgUrl: '',
 								messege: state.messege,
 								dateTime: response.data.time,
