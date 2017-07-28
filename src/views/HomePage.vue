@@ -55,23 +55,7 @@
 		},
 
 		methods: {
-			loadItems (to = this.page, from = -1) {
-				this.$bar.start()
-				this.$store.dispatch('FETCH_LIST_DATA', {
-					type: this.type
-				}).then(() => {
-					if (this.page < 0 || this.page > this.maxPage) {
-						this.$router.replace(`/${this.type}/1`)
-						return
-					}
-					this.transition = from === -1
-					? null
-					: to > from ? 'slide-left' : 'slide-right'
-					this.displayedPage = to
-					this.displayedItems = this.$store.getters.activeItems
-					this.$bar.finish()
-				})
-			}
+
 		}
 	}
 </script>
