@@ -50,10 +50,13 @@
 			}),
 			...mapMutations({
 				setIndex: 'SET_INDEX_SIZE',
-            })
+			})
 		},
 		created: function () {
 			this.getMessageListData({index: this.index, size: this.size})
+		},
+		beforeDestroy: function () {
+			this.setIndexSize({index: 1, size: 10});
 		}
 	}
 </script>
