@@ -149,10 +149,18 @@ app.use((req, res, next) => {
 	next();
 });
 // 访问文章
-app.use('/article',(req, res, next) => {
+app.get('/article/:name', (req, res) => {
 	console.log('article');
-	res.send('article');
-	next();
+	// res.send('ok');
+	fs.readFile('./test.html', (err, data) => {
+		if (err) {
+			res.send('出错了！请确定地址是否正确');
+		} else {
+			res.type('html');
+			res.set('Content-Disposition', `inline;`);
+			res.end(data);
+		}
+	});
 });
 
 // 1-second microcache.
