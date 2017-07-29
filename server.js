@@ -152,13 +152,20 @@ app.use((req, res, next) => {
 app.get('/article/:name', (req, res) => {
 	console.log('article');
 	// res.send('ok');
-	fs.readFile('./test.html', (err, data) => {
+	fs.readFile('./bannerTemplate.html', (err, templateData) => {
 		if (err) {
 			res.send('出错了！请确定地址是否正确');
 		} else {
-			res.type('html');
-			res.set('Content-Disposition', `inline;`);
-			res.end(data);
+			fs.readFile('./test.html', (err, fileData) => {
+				if (err) {
+					res.send('出错了！请确定地址是否正确');
+				}else {
+					res.type('html');
+					res.set('Content-Disposition', `inline;`);
+					// console.log(templateData.toString('utf8'), fileData.toString('utf8'), '------------------');
+					res.end(templateData.toString('utf8')+fileData.toString('utf8')+'</div></div></body></html>');
+				}
+			});
 		}
 	});
 });
