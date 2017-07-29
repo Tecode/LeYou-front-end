@@ -10,12 +10,12 @@
                     <all-contents></all-contents>
                 </div>
                 <!--<div class="col-md-4 col-lg-3">3</div>-->
-                <div class="col-md-12">
-                    <share-module title='推荐模板'></share-module>
-                </div>
-                <div class="col-md-12">
-                    <source-code title='GitHub源码项目'></source-code>
-                </div>
+                <!--<div class="col-md-12">-->
+                    <!--<share-module title='推荐模板'></share-module>-->
+                <!--</div>-->
+                <!--<div class="col-md-12">-->
+                    <!--<source-code title='GitHub源码项目'></source-code>-->
+                <!--</div>-->
             </div>
         </div>
         <footer-custom></footer-custom>

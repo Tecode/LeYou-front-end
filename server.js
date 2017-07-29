@@ -148,6 +148,12 @@ app.use((req, res, next) => {
 	status = !status;
 	next();
 });
+// 访问文章
+app.use('/article',(req, res, next) => {
+	console.log('article');
+	res.send('article');
+	next();
+});
 
 // 1-second microcache.
 // https://www.nginx.com/blog/benefits-of-microcaching-nginx/
