@@ -12,12 +12,12 @@ const cookieParser = require('cookie-parser');
 const mysql = require('mysql');
 let status = true;
 // 创建mysql数据库连接
-// const pool  = mysql.createPool({
-// 	host: "119.29.249.33",
-// 	user: "aming",
-// 	password: "5101259927x",
-// 	database: "aming_site_db"
-// });
+const pool  = mysql.createPool({
+	host: "119.29.249.33",
+	user: "aming",
+	password: "5101259927x",
+	database: "aming_site_db"
+});
 
 const isProd = process.env.NODE_ENV === 'production';
 const useMicroCache = process.env.MICRO_CACHE !== 'false';
@@ -80,66 +80,64 @@ app.use('/manifest.json', serve('./manifest.json', true));
 app.use('/service-worker.js', serve('./dist/service-worker.js'));
 app.use((req, res, next) => {
 	if (status) {
-		// axios全局配置
-		// console.log(req.cookies['aming_token']);
 		let ip = req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 		if (ip.substr(0, 7) === "::ffff:") {
 			ip = ip.substr(7)
 		}
-		// pool.getConnection(function (err, connection) {
-		// 	const sql = `INSERT INTO site_visit_info (platform, browser, isiPad, isiPhone,isAndroid, isMobile, isIE,
-		// isFirefox,
-		// isEdge,
-		// isChrome,
-		// isSafari,
-		// isWindows,
-		// isLinux,
-		// isMac,
-		// isUC,
-		// version,
-		// timestamp
-		// ) VALUES (
-		// 		'${req.useragent.platform}',
-		// 		'${req.useragent.browser}',
-		// 		'${req.useragent.isiPad}',
-		// 		'${req.useragent.isiPhone}',
-		// 		'${req.useragent.isAndroid}',
-		// 		'${req.useragent.isMobile}',
-		// 		'${req.useragent.isIE}',
-		// 		'${req.useragent.isFirefox}',
-		// 		'${req.useragent.isEdge}',
-		// 		'${req.useragent.isChrome}',
-		// 		'${req.useragent.isSafari}',
-		// 		'${req.useragent.isWindows}',
-		// 		'${req.useragent.isLinux}',
-		// 		'${req.useragent.isMac}',
-		// 		'${req.useragent.isUC}',
-		// 		'${req.useragent.version}',
-		// 		'${Math.round(new Date().getTime() / 1000)}'
-		// 		)`;
-		// 	connection.query(sql, function (err, result, fields) {
-		// 		connection.release();
-		// 		if (err) throw err;
-		// 	});
-		// });
+		pool.getConnection(function (err, connection) {
+			const sql = `INSERT INTO site_visit_info (platform, browser, isiPad, isiPhone,isAndroid, isMobile, isIE,
+		isFirefox,
+		isEdge,
+		isChrome,
+		isSafari,
+		isWindows,
+		isLinux,
+		isMac,
+		isUC,
+		version,
+		timestamp
+		) VALUES (
+				'${req.useragent.platform}',
+				'${req.useragent.browser}',
+				'${req.useragent.isiPad}',
+				'${req.useragent.isiPhone}',
+				'${req.useragent.isAndroid}',
+				'${req.useragent.isMobile}',
+				'${req.useragent.isIE}',
+				'${req.useragent.isFirefox}',
+				'${req.useragent.isEdge}',
+				'${req.useragent.isChrome}',
+				'${req.useragent.isSafari}',
+				'${req.useragent.isWindows}',
+				'${req.useragent.isLinux}',
+				'${req.useragent.isMac}',
+				'${req.useragent.isUC}',
+				'${req.useragent.version}',
+				'${Math.round(new Date().getTime() / 1000)}'
+				)`;
+			connection.query(sql, function (err, result, fields) {
+				connection.release();
+				if (err) throw err;
+			});
+		});
 		axios.post(`http://ip.taobao.com/service/getIpInfo.php?ip=${ip}`)
 		.then(({data}) => {
-			// pool.getConnection(function (err, connection) {
-			// 	if (err) throw err;
-			// 	const sql = `INSERT INTO site_ip_address (country, country_id, region, city, county, ip, timestamp) VALUES (
-			// 	'${data.data.country}',
-			// 	'${data.data.country_id}',
-			// 	'${data.data.region}',
-			// 	'${data.data.city}',
-			// 	'${data.data.county}',
-			// 	'${data.data.ip}',
-			// 	'${Math.round(new Date().getTime() / 1000)}'
-			// 	)`;
-			// 	connection.query(sql, function (err, result) {
-			// 		connection.release();
-			// 		if (err) throw err;
-			// 	});
-			// });
+			pool.getConnection(function (err, connection) {
+				if (err) throw err;
+				const sql = `INSERT INTO site_ip_address (country, country_id, region, city, county, ip, timestamp) VALUES (
+				'${data.data.country}',
+				'${data.data.country_id}',
+				'${data.data.region}',
+				'${data.data.city}',
+				'${data.data.county}',
+				'${data.data.ip}',
+				'${Math.round(new Date().getTime() / 1000)}'
+				)`;
+				connection.query(sql, function (err, result) {
+					connection.release();
+					if (err) throw err;
+				});
+			});
 		})
 		.catch((err) => {
 			console.log(err.response.data);
@@ -148,25 +146,34 @@ app.use((req, res, next) => {
 	status = !status;
 	next();
 });
+// 模板引擎
+app.engine('html', function (filePath, options, callback) {
+	fs.readFile(filePath, 'utf8', (err, data) => {
+		fs.readFile(`./viewSource/${options.name}`, 'utf8', (err2, data2) => {
+			if (err && err2) return callback(new Error(err, err2));
+			// 这是一个功能极其简单的模板引擎
+			const rendered = data.replace('{{title}}', options.title)
+			.replace('{{message}}', data2)
+			.replace('{{discript}}', options.discript);
+			return callback(null, rendered);
+		});
+	});
+});
+app.set('views', './template'); // 指定视图所在的位置
+app.set('view engine', 'html'); // 注册模板引擎
 // 访问文章
-app.get('/article/:name', (req, res) => {
-	console.log('article');
-	// res.send('ok');
-	fs.readFile('./bannerTemplate.html', (err, templateData) => {
-		if (err) {
-			res.send('出错了！请确定地址是否正确');
-		} else {
-			fs.readFile('./test.html', (err, fileData) => {
-				if (err) {
-					res.send('出错了！请确定地址是否正确');
-				}else {
-					res.type('html');
-					res.set('Content-Disposition', `inline;`);
-					// console.log(templateData.toString('utf8'), fileData.toString('utf8'), '------------------');
-					res.end(templateData.toString('utf8')+fileData.toString('utf8')+'</div></div></body></html>');
-				}
-			});
-		}
+app.get('/article/:id', (req, res) => {
+	pool.getConnection(function (err, connection) {
+		if (err) throw err;
+		const sql = `SELECT article_title, file_name, article_discript FROM site_article WHERE article_id = ${req.params.id}`;
+		connection.query(sql, function (err, result) {
+			connection.release();
+			if (err) throw err;
+			res.render('index', {
+				title: result[0]['article_title'],
+				name: result[0]['file_name'],
+				discript: result[0]['article_discript']});
+		});
 	});
 });
 
