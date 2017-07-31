@@ -173,7 +173,7 @@ app.get('/article/:id', (req, res) => {
 			res.render('index', {
 				title: result[0]['article_title'],
 				name: result[0]['file_name'],
-				sid: result[0]['req.params.id'],
+				sid: req.params.id,
 				discript: result[0]['article_discript']});
 		});
 	});
