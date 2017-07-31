@@ -12,7 +12,7 @@ const UpdateLog = r => require.ensure([], () => r(require('../views/UpdateLog.vu
 const Message = r => require.ensure([], () => r(require('../views/Message.vue')));
 const Share = r => require.ensure([], () => r(require('../views/Share.vue')));
 const Discover = r => require.ensure([], () => r(require('../views/Discover.vue')));
-const Article = r => require.ensure([], () => r(require('../views/Article.vue')));
+// const Article = r => require.ensure([], () => r(require('../views/Article.vue')));
 
 Vue.use(Router);
 
@@ -31,7 +31,7 @@ export function createRouter () {
       { path: '/share/:page(\\d+)?', component: Share },
       { path: '/message/:page(\\d+)?', component: Message },
       { path: '/updatelog/:page(\\d+)?', component: UpdateLog },
-			{ path: '/article/:id?', component: Article },
+			// { path: '/article/:id?', component: Article },
       // { path: '/item/:id(\\d+)', component: ItemView },
       // { path: '/user/:id', component: UserView },
       // { path: '/', redirect: '/top' }

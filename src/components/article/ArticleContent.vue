@@ -4,6 +4,7 @@
             <!--<h3>{{articelData.article_title}}</h3>-->
         <!--</div>-->
         <div v-html="articelData.article_content"></div>
+        <iframe src="http://www.w3school.com.cn/tags/tag_iframe.asp"></iframe>
     </div>
 </template>
 
@@ -33,6 +34,10 @@
 	}
 </script>
 
-<style lang="less">
-
+<style lang="less" scoped>
+    iframe{
+        width: 100%;
+        height: auto;
+        border: none;
+    }
 </style>

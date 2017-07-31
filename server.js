@@ -80,8 +80,6 @@ app.use('/manifest.json', serve('./manifest.json', true));
 app.use('/service-worker.js', serve('./dist/service-worker.js'));
 app.use((req, res, next) => {
 	if (status) {
-		// axios全局配置
-		// console.log(req.cookies['aming_token']);
 		let ip = req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 		if (ip.substr(0, 7) === "::ffff:") {
 			ip = ip.substr(7)
@@ -148,6 +146,36 @@ app.use((req, res, next) => {
 	status = !status;
 	next();
 });
+// 模板引擎
+app.engine('html', function (filePath, options, callback) {
+	fs.readFile(filePath, 'utf8', (err, data) => {
+		fs.readFile(`./viewSource/${options.name}`, 'utf8', (err2, data2) => {
+			if (err && err2) return callback(new Error(err, err2));
+			// 这是一个功能极其简单的模板引擎
+			const rendered = data.replace('{{title}}', options.title)
+			.replace('{{message}}', data2)
+			.replace('{{discript}}', options.discript);
+			return callback(null, rendered);
+		});
+	});
+});
+app.set('views', './template'); // 指定视图所在的位置
+app.set('view engine', 'html'); // 注册模板引擎
+// 访问文章
+app.get('/article/:id', (req, res) => {
+	pool.getConnection(function (err, connection) {
+		if (err) throw err;
+		const sql = `SELECT article_title, file_name, article_discript FROM site_article WHERE article_id = ${req.params.id}`;
+		connection.query(sql, function (err, result) {
+			connection.release();
+			if (err) throw err;
+			res.render('index', {
+				title: result[0]['article_title'],
+				name: result[0]['file_name'],
+				discript: result[0]['article_discript']});
+		});
+	});
+});
 
 // 1-second microcache.
 // https://www.nginx.com/blog/benefits-of-microcaching-nginx/
@@ -191,7 +219,7 @@ function render(req, res) {
 	}
 
 	const context = {
-		title: 'aming web site', // default title
+		title: '乐游博客-阿明的博客-站内提供资源分享', // default title
 		url: req.url
 	};
 	renderer.renderToString(context, (err, html) => {

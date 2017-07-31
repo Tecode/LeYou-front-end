@@ -6,6 +6,9 @@
                     <h1 class="text-center">{{currentTime}}</h1>
                     <h3 class="text-center">{{currentStatus}}好，欢迎留言与反馈</h3>
                     <p class="text-center">提示：只有用户处于登录状态才可以留言反馈</p>
+                    <div class="text-center">
+                        <button class="living_button" @click=" messegeAlert">我也说一句</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -16,6 +19,9 @@
 	import moment from 'moment';
 	moment.locale('zh-cn');
 	import MessageItem from '../../components/message/MessageItem.vue'
+	import {mapMutations, mapState, mapActions} from 'vuex';
+	import {Message} from 'element-ui';
+
 	export default {
 		name: 'banner',
 		props: ['id'],
@@ -34,8 +40,27 @@
 				this.currentStatus = moment().format('a');
 			}, 1000);
 		},
-		computed: {},
-		methods: {}
+		methods: {
+			messegeAlert: function () {
+				if (this.name && this.name !== '') {
+					this.togglePopup({popupShow: true})
+				} else {
+					Message({
+						showClose: false,
+						message: 'Sorry，请登录以后再留言！',
+						type: 'error'
+					});
+				}
+			},
+			...mapMutations({
+				togglePopup: 'TOGGLE_POPUP',
+			})
+		},
+		computed: {
+			...mapState({
+				name: state => state.NavHeader.userInfo.user_name
+			}),
+		},
 	}
 </script>
 
@@ -69,6 +94,17 @@
                 }
                 p {
                     color: @white;
+                }
+                .living_button {
+                    background-color: @background-color50;
+                    outline: none;
+                    color: @white;
+                    border: none;
+                    font-size: 18px;
+                    padding: 10px 25px;
+                    font-weight: lighter;
+                    margin-top: 1.0em;
+                    cursor: pointer;
                 }
                 width: 780px;
                 overflow: hidden;

@@ -1,6 +1,6 @@
 <template>
     <div class="single_content_box">
-        <div class="single_content" @click="jumpLink(item.aid)">
+        <a :href="jumpLink(item.aid)" @click="countAdd(item.aid)" target="_blank" class="single_content">
             <div class="clearfix">
                 <div class="image_box pull-left" :style="{backgroundImage: `url(${item.imageurl})`}">
                     <div class="image_data_time text-center">
@@ -25,15 +25,16 @@
                 </div>
             </div>
             <div class="date_time">{{item.month}},{{item.day}}</div>
-        </div>
+        </a>
     </div>
 </template>
 
 <script>
+	import {mapState, mapActions, mapMutations} from 'vuex';
 	export default {
 		name: 'comment',
 		props: {
-		    item: {
+			item: {
 				type: Object,
 			}
 		},
@@ -45,8 +46,11 @@
 		computed: {},
 		methods: {
 			jumpLink: function (val) {
-				this.$router.push(`/article/${val}`);
-			}
+				return (`/article/${val}`);
+			},
+			...mapActions({
+				countAdd: 'GET_ARTICLE_DATA',
+			})
 		}
 	}
 </script>
@@ -58,12 +62,17 @@
         padding: 5px 0 10px 0;
         border-bottom: 1px solid @color810;
         .single_content {
+            display: block;
             background-color: @white;
             box-shadow: @box-shadow26;
             margin: 10px 15px;
             padding: 15px;
             position: relative;
             cursor: pointer;
+            transition: all .3s;
+            &:hover {
+                box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3);
+            }
             .image_box {
                 background-image: url("../../imgs/demo_image.jpg");
                 background-size: cover;
