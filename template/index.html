@@ -40,7 +40,10 @@
             background-color: #fff;
             -webkit-border-radius: 0;
         }
-
+        html,body{
+            margin: 0;
+            padding: 0
+        }
         .clearfix:after {
             content: "";
             display: block;
@@ -720,6 +723,18 @@
      <div class="col-md-12 _content clearfix">
         {{message}}
     </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div id="SOHUCS" sid={{sid}}></div>
+        <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
+        <script type="text/javascript">
+        window.changyan.api.config({
+        appid: 'cyt8CtmWU',
+        conf: 'prod_7b5ca20c4360b7feb5a2c73a718ff06a'
+        });
+        </script>
     </div>
 </div>
 <div class="footer_coustm">
