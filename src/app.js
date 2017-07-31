@@ -7,9 +7,10 @@ import titleMixin from './util/title'
 import * as filters from './util/filters'
 // 引入饿了吗的ui
 import './static/styles/pagination.min.css'
+import 'element-ui/lib/theme-default/message.css'
 import {
 	Pagination,
-} from 'element-ui'
+} from 'element-ui';
 
 Vue.use(Pagination);
 
