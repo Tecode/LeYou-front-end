@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class="site_tips">网站目前处于开发阶段，只有登录、注册功能、文章阅读功能可以使用，其它功能只做展示。敬请期待！</div>
+        <div class="site_tips">网站目前处于开发阶段，只有登录、注册功能、留言功能、文章阅读功能可以使用，其它功能只做展示。敬请期待！</div>
         <login-register></login-register>
         <transition name="fade" mode="out-in">
             <router-view class="view"></router-view>
