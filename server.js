@@ -154,7 +154,8 @@ app.engine('html', function (filePath, options, callback) {
 			// 这是一个功能极其简单的模板引擎
 			const rendered = data.replace('{{title}}', options.title)
 			.replace('{{message}}', data2)
-			.replace('{{discript}}', options.discript);
+			.replace('{{discript}}', options.discript)
+			.replace('{{sid}}', options.sid);
 			return callback(null, rendered);
 		});
 	});
@@ -172,6 +173,7 @@ app.get('/article/:id', (req, res) => {
 			res.render('index', {
 				title: result[0]['article_title'],
 				name: result[0]['file_name'],
+				sid: req.params.id,
 				discript: result[0]['article_discript']});
 		});
 	});

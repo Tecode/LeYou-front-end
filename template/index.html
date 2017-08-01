@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="个人博客,阿明的个人博客,个人博客模板,阿明,免费教程，源码分享"/>
-    <meta name="description" content={{discript}} />
+    <meta name="description" content="阿明的个人博客,是一个会写代码的美工,网站提供免费的教学资源以及网站源码分享，欢迎各位小伙伴来网站留言互动。"/>
     <script>
       var _hmt = _hmt || [];
       (function () {
@@ -40,7 +40,10 @@
             background-color: #fff;
             -webkit-border-radius: 0;
         }
-
+        html,body{
+            margin: 0;
+            padding: 0
+        }
         .clearfix:after {
             content: "";
             display: block;
@@ -507,7 +510,7 @@
             *zoom: 1;
         }
 
-        .row ::after {
+        .row::after {
             content: "";
             display: block;
             clear: both;
@@ -621,10 +624,11 @@
             background-color: #ffbb12;
             padding: 40px 0;
             margin: 45px 0 0 0;
+                        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         }
 
         .footer_coustm .footer_coustm_box {
-            width: 600px;
+            width: 640px;
             margin: 0 auto;
         }
 
@@ -633,6 +637,7 @@
         }
 
         .footer_coustm .footer_coustm_box li {
+            list-style: none;
             float: left;
         }
 
@@ -645,7 +650,7 @@
 
         .footer_coustm .QR_wechat {
             background: url("https://www.soscoon.com/dist/wechat_QRcode.jpg?c7e0bed3fb10a518f7a16f3ea26521bf") 15px 0 no-repeat;
-            background-size: 128px;
+            background-size: 148px;
             width: 128px;
             height: 152px;
             margin: 0 15px;
@@ -655,6 +660,18 @@
 
         .footer_coustm .discript {
             color: #4c4c4c;
+        }
+
+        .footer_coustm .discript dl{
+            margin: 0;
+        }
+        .footer_coustm .discript dl dd {
+            padding-left: 0;
+            margin-left: 0;
+        }
+        .footer_coustm .discript p{
+            margin: 0 0;
+            line-height: 1.5em;
         }
 
         .footer_coustm .copyright .copyright_text {
@@ -707,12 +724,26 @@
     </div>
 </div>
 <div class="container">
-    <div class="col-md-12 _content clearfix">
+    <div class="row" style="margin:0">
+     <div class="col-md-12 _content clearfix">
         {{message}}
+    </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div id="SOHUCS" sid={{sid}}></div>
+        <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
+        <script type="text/javascript">
+        window.changyan.api.config({
+        appid: 'cyt8CtmWU',
+        conf: 'prod_7b5ca20c4360b7feb5a2c73a718ff06a'
+        });
+        </script>
     </div>
 </div>
 <div class="footer_coustm">
-    <ul class="footer_coustm_box clearfix">
+    <ul class="footer_coustm_box clearfix" style="padding-left: 0;">
         <li class="QR_qq"></li>
         <li class="QR_wechat"></li>
         <li class="discript">
