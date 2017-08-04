@@ -4,27 +4,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 item_box">
-                    <div>
-                        <single-item></single-item>
-                        <single-item></single-item>
-                        <single-item></single-item>
-                        <single-item></single-item>
-                        <single-item></single-item>
-                        <single-item></single-item>
-                        <single-item></single-item>
-                        <single-item></single-item>
-                        <single-item></single-item>
-                        <single-item></single-item>
-                        <single-item></single-item>
-                        <single-item></single-item>
-                        <single-item></single-item>
-                        <single-item></single-item>
-                    </div>
+                    <discover-contents></discover-contents>
                     <div class="page-pagination text-center">
-                        <el-pagination
-                                layout="prev, pager, next"
-                                :total="50">
-                        </el-pagination>
+                        <!--<el-pagination-->
+                                <!--layout="prev, pager, next"-->
+                                <!--:total="50">-->
+                        <!--</el-pagination>-->
                     </div>
                 </div>
             </div>
@@ -34,15 +19,17 @@
 </template>
 
 <script>
-    import Banner from '../components/discoverer/Banner.vue'
+    import Banner from '../components/discover/Banner.vue'
     import SingleItem from '../components/common/SingleItem.vue'
     import NavFooter from '../components/common/Footer.vue'
+	import DiscoverContents from '../components/discover/DiscoverContents.vue'
 	export default {
 		name: 'comment',
 			components: {
 			Banner,
 			SingleItem,
-			NavFooter
+			NavFooter,
+			DiscoverContents
 			},
 		props: ['id'],
 		data () {

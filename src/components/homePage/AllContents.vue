@@ -32,7 +32,7 @@
 </template>
 
 <script>
-	import SingleItem from '../homePage/SingleItem.vue';
+	import SingleItem from '../common/SingleItem.vue';
 	import {mapMutations, mapState, mapActions} from 'vuex';
 	import AnimationOne from '../animation/AnimationOne.vue'
 

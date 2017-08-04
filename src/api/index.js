@@ -20,6 +20,10 @@ export const registerRequestApi = (param) => {
 export const getArticelListApi = ({index, size}) => {
 	return axios.get('/application/api/getArticel', {params:{index :index, size: size}});
 };
+// 搜索文章内容
+export const searchArticelListApi = ({keyWords, index, size}) => {
+	return axios.get(`/application/api/search/${keyWords}`, {params:{index :index, size: size}});
+};
 // 获取文章api
 export const getArticelApi = (id) => {
 	return axios.get(`/application/api/getArticel/${id}`);
