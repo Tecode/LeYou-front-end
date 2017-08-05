@@ -47,10 +47,18 @@
 		methods: {
 			changePage: function (val) {
 				this.setIndexSize({index: val, size: 10});
-//				this.getArticleList({
-//					index: this.index,
-//					size: this.size,
-//				});
+				if (this.value === '') {
+					Message({
+						message: '搜索关键词不能为空',
+						type: 'error'
+					});
+				} else {
+					this.searchArticleList({
+						keyWords: this.value,
+						index: this.index,
+						size: this.size,
+					});
+				}
 			},
 			...mapMutations({
 				setIndexSize: 'SET_INDEX_SIZE',
@@ -58,6 +66,7 @@
 			}),
 			...mapActions({
 				getArticleList: 'GET_LIST_ARTICLE_DATA',
+				searchArticleList: 'GET_SEARCH_DATA',
 			})
 		},
 		beforeDestroy: function () {
