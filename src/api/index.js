@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 // 拦截请求
 axios.interceptors.response.use(function (response) {
 	// console.log(response.data, '---------------');
@@ -22,7 +21,10 @@ export const getArticelListApi = ({index, size}) => {
 };
 // 搜索文章内容
 export const searchArticelListApi = ({keyWords, index, size}) => {
-	return axios.get(`/application/api/search/${keyWords}`, {params:{index :index, size: size}});
+	return axios.get(`/application/api/search/${keyWords}`, {
+		// 取消请求
+		params:{index :index, size: size}
+	});
 };
 // 获取文章api
 export const getArticelApi = (id) => {

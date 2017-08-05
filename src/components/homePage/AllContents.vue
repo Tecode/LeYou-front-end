@@ -66,6 +66,7 @@
 			},
 			...mapMutations({
 				setIndexSize: 'SET_INDEX_SIZE',
+                resetStore: 'RSET_ARTICLE_DATA'
 			}),
 			...mapActions({
 				getArticleList: 'GET_LIST_ARTICLE_DATA',
@@ -73,6 +74,7 @@
 		},
 		beforeDestroy: function () {
 		    this.setIndexSize({index: 1, size: 10});
+		    this.resetStore();
 		}
 	}
 </script>

@@ -5,7 +5,8 @@
             <div class="input_box">
                 <div class="clearfix search_box">
                     <label for="search"></label>
-                    <input class="pull-left" id="search" v-model="value" placeholder="输入搜索关键字如“Node”"/>
+                    <input autofocus="autofocus" class="pull-left" @keyup="enterCode" id="search" v-model="value"
+                           placeholder="输入搜索关键字如“Node”"/>
                     <button class="pull-left" @click="searchButton">搜索</button>
                 </div>
                 <!--<div class="hot_worlds">-->
@@ -47,6 +48,22 @@
 			}),
 		},
 		methods: {
+			enterCode: function (event) {
+				if (event.keyCode === 13) {
+					if (this.value === '') {
+						Message({
+							message: '搜索关键词不能为空',
+							type: 'error'
+						});
+					} else {
+						this.searchArticleList({
+							keyWords: this.value,
+							index: this.index,
+							size: this.size,
+						});
+					}
+				}
+			},
 			searchButton: function () {
 				if (this.value === '') {
 					Message({

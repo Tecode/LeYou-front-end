@@ -1,7 +1,7 @@
 <template>
     <div class="discover_contens">
-        <no-data-text v-if="dataList === ''"></no-data-text>
-        <animation-one v-if="dataList !== '' && dataList.length === 0"></animation-one>
+        <no-data-text v-if="dataList.length === 0 && !loading"></no-data-text>
+        <animation-one v-if="loading"></animation-one>
         <div>
             <single-item
                     v-if="dataList.length > 0"
@@ -38,6 +38,7 @@
 		computed: {
 			...mapState({
 				dataList: state => state.Article.dataList,
+				loading: state => state.Article.loading,
 				total: state => state.Article.total,
 				index: state => state.Ui.index,
 				size: state => state.Ui.size,
@@ -53,6 +54,7 @@
 			},
 			...mapMutations({
 				setIndexSize: 'SET_INDEX_SIZE',
+				resetStore: 'RSET_ARTICLE_DATA'
 			}),
 			...mapActions({
 				getArticleList: 'GET_LIST_ARTICLE_DATA',
@@ -60,6 +62,7 @@
 		},
 		beforeDestroy: function () {
 			this.setIndexSize({index: 1, size: 10});
+			this.resetStore();
 		}
 	}
 </script>
