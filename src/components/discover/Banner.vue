@@ -5,14 +5,15 @@
             <div class="input_box">
                 <div class="clearfix search_box">
                     <label for="search"></label>
-                    <input class="pull-left" id="search" placeholder="输入搜索关键字如“Nodejs”"/>
-                    <button class="pull-left">搜索</button>
+                    <input autofocus="autofocus" class="pull-left" @keyup="enterCode" id="search" v-model="value"
+                           placeholder="输入搜索关键字如“Node”"/>
+                    <button class="pull-left" @click="searchButton">搜索</button>
                 </div>
-                <div class="hot_worlds">
-                    <span>CentOs7</span>
-                    <span>Canvers</span>
-                    <span>Nodejs</span>
-                </div>
+                <!--<div class="hot_worlds">-->
+                <!--<span>CentOs7</span>-->
+                <!--<span>Canvers</span>-->
+                <!--<span>Nodejs</span>-->
+                <!--</div>-->
             </div>
         </div>
     </div>
@@ -20,12 +21,13 @@
 
 <script>
 	import starrySky from '../../static/starrySky'
+	import {mapMutations, mapState, mapActions} from 'vuex';
+	import {Message} from 'element-ui';
 	export default {
-		name: 'banner',
-		props: ['id'],
+		name: 'banner-search',
 		data () {
 			return {
-				open: true
+				value: ''
 			}
 		},
 		mounted() {
@@ -37,8 +39,52 @@
 //				canvasElemet: 'canvasEl'
 //			});
 		},
-		computed: {},
-		methods: {}
+		computed: {
+			...mapState({
+				dataList: state => state.Article.dataList,
+				total: state => state.Article.total,
+				index: state => state.Ui.index,
+				size: state => state.Ui.size,
+			}),
+		},
+		methods: {
+			enterCode: function (event) {
+				if (event.keyCode === 13) {
+					if (this.value === '') {
+						Message({
+							message: '搜索关键词不能为空',
+							type: 'error'
+						});
+					} else {
+						this.searchArticleList({
+							keyWords: this.value,
+							index: this.index,
+							size: this.size,
+						});
+					}
+				}
+			},
+			searchButton: function () {
+				if (this.value === '') {
+					Message({
+						message: '搜索关键词不能为空',
+						type: 'error'
+					});
+				} else {
+					this.searchArticleList({
+						keyWords: this.value,
+						index: this.index,
+						size: this.size,
+					});
+				}
+			},
+			...mapMutations({
+				setIndexSize: 'SET_INDEX_SIZE',
+			}),
+			...mapActions({
+				searchArticleList: 'GET_SEARCH_DATA',
+			})
+		},
 	}
 </script>
 
@@ -100,6 +146,11 @@
                 background-size: 18px;
                 background-color: @background-color50;
                 font-size: 16px;
+                cursor: pointer;
+                transition: all 0.3s;
+                &:hover {
+                    background-color: @color556;
+                }
             }
         }
     }

@@ -155,6 +155,7 @@ app.engine('html', function (filePath, options, callback) {
 			const rendered = data.replace('{{title}}', options.title)
 			.replace('{{message}}', data2)
 			.replace('{{discript}}', options.discript)
+			.replace('{{keyWords}}', options.keyWords)
 			.replace('{{sid}}', options.sid);
 			return callback(null, rendered);
 		});
@@ -166,7 +167,7 @@ app.set('view engine', 'html'); // 注册模板引擎
 app.get('/article/:id', (req, res) => {
 	pool.getConnection(function (err, connection) {
 		if (err) throw err;
-		const sql = `SELECT article_title, file_name, article_discript FROM site_article WHERE article_id = ${req.params.id}`;
+		const sql = `SELECT article_title, file_name, article_discript, article_keywords FROM site_article WHERE article_id = ${req.params.id}`;
 		connection.query(sql, function (err, result) {
 			connection.release();
 			if (err) throw err;
@@ -174,6 +175,7 @@ app.get('/article/:id', (req, res) => {
 				title: result[0]['article_title'],
 				name: result[0]['file_name'],
 				sid: req.params.id,
+				keyWords: result[0]['article_keywords'],
 				discript: result[0]['article_discript']});
 		});
 	});
