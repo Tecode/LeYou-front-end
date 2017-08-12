@@ -4,6 +4,9 @@ export const loginRegistration = 'loginRegistration';
 export const closePopup = 'closePopup';
 export const request = 'request';
 export const inputContent = 'inputContent';
+// 保存第三方获取的信息
+export const SAVE_TREE_PARTY_INFO = 'SAVE_TREE_PARTY_INFO';
+export const SAVE_TREE_PARTY_INFO_REQUEST = 'SAVE_TREE_PARTY_INFO_REQUEST';
 // 登录注册action
 export const loginRequest = 'loginRequest';
 export const registerRequest = 'registerRequest';

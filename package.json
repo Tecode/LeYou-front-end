@@ -27,6 +27,8 @@
     "express-useragent": "^1.0.7",
     "extract-text-webpack-plugin": "^2.1.0",
     "firebase": "^3.7.2",
+    "js-cookie": "2.1.4",
+    "jsonp": "^0.2.1",
     "lru-cache": "^4.0.2",
     "moment": "^2.18.1",
     "mysql": "^2.13.0",

@@ -28,7 +28,6 @@ const serverInfo =
 const app = express();
 
 const template = fs.readFileSync(resolve('./src/index.template.html'), 'utf-8');
-
 function createRenderer(bundle, options) {
 	// https://github.com/vuejs/vue/blob/dev/packages/vue-server-renderer/README.md#why-use-bundlerenderer
 	return createBundleRenderer(bundle, Object.assign(options, {
