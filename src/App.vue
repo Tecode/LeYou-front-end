@@ -10,31 +10,10 @@
                             </div>
                         </router-link>
                         <router-link class="nav_link" :class="{active : activeNav === '/'}" to="/">首页</router-link>
-                        <router-link class="nav_link" :class="{active : activeNav === '/discover'}" to="/discover">发现
-
-
-
-
-                        </router-link>
-                        <router-link class="nav_link" :class="{active : activeNav === '/share'}" to="/share">分享
-
-
-
-
-                        </router-link>
-                        <router-link class="nav_link" :class="{active : activeNav === '/message'}" to="/message">留言
-
-
-
-
-                        </router-link>
-                        <router-link class="nav_link" :class="{active : activeNav === '/updatelog'}" to="/updatelog">
-                            更新日志
-
-
-
-
-                        </router-link>
+                        <router-link class="nav_link" :class="{active : activeNav === '/discover'}" to="/discover">发现</router-link>
+                        <router-link class="nav_link" :class="{active : activeNav === '/game'}" to="/game">游戏</router-link>
+                        <router-link class="nav_link" :class="{active : activeNav === '/message'}" to="/message">留言</router-link>
+                        <router-link class="nav_link" :class="{active : activeNav === '/updatelog'}" to="/updatelog">更新日志</router-link>
                         <div v-if="!userInfo.user_name" class="pull-right">
                             <a @click="loginRegistration('login')" class="nav_link">登录</a>
                             <a @click="loginRegistration('registration')" class="nav_link">注册</a>
@@ -59,6 +38,7 @@
 	import {mapActions} from 'vuex';
 	import {mapGetters} from 'vuex';
 	import {mapMutations} from 'vuex';
+	import Cookies from 'js-cookie';
 
 	export default {
 		name: 'app',
@@ -91,7 +71,6 @@
 		},
 		created: function () {
 			this.listenerRouting(this.$route.fullPath);
-			this.GETUSERINFO();
 		},
 		data () {
 			return {
@@ -113,6 +92,10 @@
 			}
 			// 使用QQ授权信息去获取用户信息
 			this.saveThreePartyRequest();
+			if (!Cookies.get()['accessToken'] || Cookies.get()['accessToken'] === '') {
+				// 获取注册用户信息
+				this.GETUSERINFO();
+			}
 		}
 	}
 </script>

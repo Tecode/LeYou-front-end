@@ -222,7 +222,7 @@ const LoginRegistration = {
 					});
 				}
 				// 保存用户授权信息到数据库
-				saveThreePartyInfoApi(response.data)
+				saveThreePartyInfoApi(data)
 				.then((response) => {
 
 				})

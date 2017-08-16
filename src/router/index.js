@@ -10,7 +10,7 @@ import Router from 'vue-router'
 const HomePage = r => require.ensure([], () => r(require('../views/HomePage.vue')));
 const UpdateLog = r => require.ensure([], () => r(require('../views/UpdateLog.vue')));
 const Message = r => require.ensure([], () => r(require('../views/Message.vue')));
-const Share = r => require.ensure([], () => r(require('../views/Share.vue')));
+const Game = r => require.ensure([], () => r(require('../views/Game.vue')));
 const Discover = r => require.ensure([], () => r(require('../views/Discover.vue')));
 // const Article = r => require.ensure([], () => r(require('../views/Article.vue')));
 
@@ -28,7 +28,7 @@ export function createRouter () {
     routes: [
       { path: '/', component: HomePage },
       { path: '/discover/:page(\\d+)?', component: Discover },
-      { path: '/share/:page(\\d+)?', component: Share },
+      { path: '/game/:page(\\d+)?', component: Game },
       { path: '/message/:page(\\d+)?', component: Message },
       { path: '/updatelog/:page(\\d+)?', component: UpdateLog },
 			// { path: '/article/:id?', component: Article },
