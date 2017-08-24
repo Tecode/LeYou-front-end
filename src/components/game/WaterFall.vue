@@ -28,18 +28,12 @@
 </script>
 
 <style lang="less">
-    body {
-        margin: 0;
-    }
-
-    .box {
-        width: 200px;
-        background-color: #3d1e37;
-    }
-
     .water_fall_container {
-        width: 800px;
         margin: 50px auto 40px auto;
         transition: all .3s;
+        .box {
+            width: 200px;
+            background-color: #3d1e37;
+        }
     }
 </style>

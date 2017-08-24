@@ -5,7 +5,7 @@ const gregenerateat = () => {
 	// insert 100 divs with same width, but random height
 	for (let i = 0; i < 20; i++) {
 		const div = document.createElement('div');
-		div.classList.add('box');
+		div.setAttribute("class", "box");
 		div.style.width = '200px';
 		div.style.height = Math.round(Math.random() * 400) + 'px';
 		container.appendChild(div)
