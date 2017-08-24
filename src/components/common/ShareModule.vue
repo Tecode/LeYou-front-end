@@ -7,11 +7,17 @@
             <card-item class="pull-left item_center_2"></card-item>
             <card-item class="pull-left item_center_3"></card-item>
         </div>
+        <div class="itme_box clearfix">
+            <card-item class="pull-left"></card-item>
+            <card-item class="pull-left item_center_1"></card-item>
+            <card-item class="pull-left item_center_2"></card-item>
+            <!--<card-item class="pull-left item_center_3"></card-item>-->
+        </div>
     </div>
 </template>
 
 <script>
-    import CardItem from '../common/CardItem.vue';
+    import CardItem from './CardItem.vue';
 	export default {
 		name: 'share-module',
 		props: {

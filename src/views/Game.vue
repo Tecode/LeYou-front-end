@@ -1,21 +1,24 @@
 <template>
-    <h1 style="margin-top: 120px" class="text-center">建设中...</h1>
+    <water-fall></water-fall>
 </template>
 
 <script>
+	import WaterFall from '../components/game/WaterFall.vue';
+
 	export default {
-		name: 'comment',
-		props: ['id'],
+		name: 'app',
+		components: {
+			WaterFall,
+		},
 		data () {
 			return {
-				open: true
+				loading: true,
 			}
 		},
-		computed: {},
 		methods: {}
 	}
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 
 </style>

@@ -28,7 +28,7 @@
 	import FooterCustom from '../components/common/Footer.vue'
 	import AboutMe from '../components/homePage/AboutMe.vue'
 	import AllContents from '../components/homePage/AllContents.vue'
-	import ShareModule from '../components/homePage/ShareModule.vue'
+	import ShareModule from '../components/common/ShareModule.vue'
     import SourceCode from '../components/homePage/SourceCode.vue'
 
 	export default {
