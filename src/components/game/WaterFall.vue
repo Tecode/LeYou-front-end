@@ -39,29 +39,28 @@
 				},
 
 				{
-					coverImage: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1503731010567&di=355584be17235e597dc02f0dd1e25d7a&imgtype=0&src=http%3A%2F%2Fimg.smzy.com%2Fdown%2FUploadPic%2F2016-6%2F20166289555238621.jpg',
-					link: '/games/test_derailed/'
+					coverImage: 'http://niuguangzu.com/uploadfile/2015/0911/20150911102151802.png',
+					link: '/games/game_Island_country/'
 				},
 				{
-					coverImage: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1503722945921&di=cc4cfb46bb9b08f3f20a481b7de8ac16&imgtype=0&src=http%3A%2F%2Fimg4.cache.netease.com%2Fphoto%2F0031%2F2017-03-03%2FCEITI5KQ4UUJ0031.jpg',
-					link: '/games/test_derailed/'
-				},
-
-				{
-					coverImage: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1503731010567&di=355584be17235e597dc02f0dd1e25d7a&imgtype=0&src=http%3A%2F%2Fimg.smzy.com%2Fdown%2FUploadPic%2F2016-6%2F20166289555238621.jpg',
-					link: '/games/test_derailed/'
+					coverImage: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1503736255467&di=e3c85ae6a138e2c83be64b613edf20c4&imgtype=0&src=http%3A%2F%2Fs3.sinaimg.cn%2Fmw690%2F0026BaqJzy6IRXEAtGO12',
+					link: '/games/game_find_something/'
 				},
 				{
-					coverImage: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1503722945921&di=cc4cfb46bb9b08f3f20a481b7de8ac16&imgtype=0&src=http%3A%2F%2Fimg4.cache.netease.com%2Fphoto%2F0031%2F2017-03-03%2FCEITI5KQ4UUJ0031.jpg',
-					link: '/games/test_derailed/'
+					coverImage: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1503737208732&di=421089e8a7ea87bdccf8404e586e94a4&imgtype=0&src=http%3A%2F%2Fimg.25pp.com%2Fuploadfile%2Fapp%2Fcapture%2Fiphone5%2F20151110%2F1447113620258848.jpeg',
+					link: '/games/game_color/'
 				},
 				{
-					coverImage: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1503731010567&di=355584be17235e597dc02f0dd1e25d7a&imgtype=0&src=http%3A%2F%2Fimg.smzy.com%2Fdown%2FUploadPic%2F2016-6%2F20166289555238621.jpg',
-					link: '/games/test_derailed/'
+					coverImage: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1503737811143&di=21b1dd20a33970e1f14ffbf1535e9769&imgtype=0&src=http%3A%2F%2Fimg.redocn.com%2Fsheji%2F20150814%2Fdaqishuimoqixiqingrenjiehaibaosucai_4810852.jpg',
+					link: '/games/game_magpie_festival/'
 				},
 				{
-					coverImage: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1503722945921&di=cc4cfb46bb9b08f3f20a481b7de8ac16&imgtype=0&src=http%3A%2F%2Fimg4.cache.netease.com%2Fphoto%2F0031%2F2017-03-03%2FCEITI5KQ4UUJ0031.jpg',
-					link: '/games/test_derailed/'
+					coverImage: '/games/test_thought_reading/cover.jpg',
+					link: '/games/test_thought_reading/'
+				},
+				{
+					coverImage: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1503739948076&di=892f401627ac4501308fd94a7d6dfa51&imgtype=0&src=http%3A%2F%2Ftc.sinaimg.cn%2Fmaxwidth.800%2Ftc.service.weibo.com%2Fimg_mp_itc_cn%2F127c7198443c5fbcdb152d0b36336870.jpg',
+					link: '/games/game_red_green/'
 				}
 			];
 			generate(gameArr);
