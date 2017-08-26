@@ -77,6 +77,7 @@ app.use('/dist', serve('./dist', true));
 app.use('/public', serve('./public', true));
 app.use('/manifest.json', serve('./manifest.json', true));
 app.use('/service-worker.js', serve('./dist/service-worker.js'));
+app.use(express.static('files'));
 app.use((req, res, next) => {
 	if (status) {
 		let ip = req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
