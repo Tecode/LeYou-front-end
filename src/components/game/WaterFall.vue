@@ -2,7 +2,7 @@
     <div>
         <div class="water_fall_container"></div>
         <div class="add_more_button text-center">
-            <span @click="">加载更多内容...</span>
+            <span @click="">没有更多内容了...</span>
         </div>
     </div>
 </template>

@@ -11,8 +11,8 @@
                         </router-link>
                         <router-link class="nav_link" :class="{active : activeNav === '/'}" to="/">首页</router-link>
                         <router-link class="nav_link" :class="{active : activeNav === '/discover'}" to="/discover">发现</router-link>
-                        <router-link class="nav_link" :class="{active : activeNav === '/game'}" to="/game">游戏</router-link>
                         <router-link class="nav_link" :class="{active : activeNav === '/message'}" to="/message">留言</router-link>
+                        <router-link class="nav_link" :class="{active : activeNav === '/game'}" to="/game">小游戏</router-link>
                         <router-link class="nav_link" :class="{active : activeNav === '/updatelog'}" to="/updatelog">更新日志</router-link>
                         <div v-if="!userInfo.user_name" class="pull-right">
                             <a @click="loginRegistration('login')" class="nav_link">登录</a>
