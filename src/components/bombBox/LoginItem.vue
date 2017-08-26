@@ -65,7 +65,7 @@
 			login: function () {
 				window.QC.Login.showPopup({
 					appId: "101415597",
-					redirectURI: "http://aming.dev.com/"
+					redirectURI: "https://www.soscoon.com"
 				})
 			},
 			...mapMutations({

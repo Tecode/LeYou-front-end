@@ -21,7 +21,7 @@ const gregenerateat = (gameArr) => {
 		position:  true,
 		sizes: [
 			{ columns: 4, gutter: 20 },
-			{ mq: '414px', columns: 1, gutter: 10 },
+			{ mq: '320px', columns: 1, gutter: 10 },
 			{ mq: '640px', columns: 2, gutter: 15 },
 			{ mq: '800px', columns: 2, gutter: 15 },
 			{ mq: '1024px', columns: 4, gutter: 15 },
