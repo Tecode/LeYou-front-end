@@ -10,27 +10,22 @@
                             </div>
                         </router-link>
                         <router-link class="nav_link" :class="{active : activeNav === '/'}" to="/">首页</router-link>
-                        <router-link class="nav_link" :class="{active : activeNav === '/discover'}" to="/discover">发现
-                        </router-link>
-                        <router-link class="nav_link" :class="{active : activeNav === '/share'}" to="/share">分享
-                        </router-link>
-                        <router-link class="nav_link" :class="{active : activeNav === '/message'}" to="/message">留言
-                        </router-link>
-                        <router-link class="nav_link" :class="{active : activeNav === '/updatelog'}" to="/updatelog">
-                            更新日志
-                        </router-link>
+                        <router-link class="nav_link" :class="{active : activeNav === '/discover'}" to="/discover">发现</router-link>
+                        <router-link class="nav_link" :class="{active : activeNav === '/message'}" to="/message">留言</router-link>
+                        <router-link class="nav_link" :class="{active : activeNav === '/game'}" to="/game">小游戏</router-link>
+                        <router-link class="nav_link" :class="{active : activeNav === '/updatelog'}" to="/updatelog">更新日志</router-link>
                         <div v-if="!userInfo.user_name" class="pull-right">
                             <a @click="loginRegistration('login')" class="nav_link">登录</a>
                             <a @click="loginRegistration('registration')" class="nav_link">注册</a>
                         </div>
                         <div v-if="userInfo.user_name" class="pull-right">
-                        <span class="nav_welcome">欢迎你，{{userInfo.user_name}}!</span>
+                            <span class="nav_welcome">欢迎你，{{userInfo.user_name}}!</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="site_tips">网站目前处于开发阶段，只有登录、注册功能、留言功能、文章阅读功能可以使用，其它功能只做展示。敬请期待！</div>
+        <!--<div class="site_tips">网站目前处于开发阶段，只有登录、注册功能、留言功能、文章阅读功能可以使用，其它功能只做展示。敬请期待！</div>-->
         <login-register></login-register>
         <transition name="fade" mode="out-in">
             <router-view class="view"></router-view>
@@ -43,6 +38,7 @@
 	import {mapActions} from 'vuex';
 	import {mapGetters} from 'vuex';
 	import {mapMutations} from 'vuex';
+	import Cookies from 'js-cookie';
 
 	export default {
 		name: 'app',
@@ -61,11 +57,13 @@
 		},
 		methods: {
 			...mapActions({
-				GETUSERINFO: 'GETUSERINFO'
+				GETUSERINFO: 'GETUSERINFO',
+				saveThreePartyRequest: 'SAVE_TREE_PARTY_INFO_REQUEST'
 			}),
 			...mapMutations({
 				listenerRouting: 'listenerRouting', // 映射 this.listenerRouting() 为 this.$store.commit('listenerRouting')
-				loginRegistration: 'loginRegistration'
+				loginRegistration: 'loginRegistration',
+				saveLoginInfo: 'SAVE_TREE_PARTY_INFO',
 			}),
 			fetchData(){
 				this.listenerRouting(this.$route.fullPath);
@@ -73,7 +71,6 @@
 		},
 		created: function () {
 			this.listenerRouting(this.$route.fullPath);
-			this.GETUSERINFO();
 		},
 		data () {
 			return {
@@ -84,6 +81,22 @@
 			// 如果路由有变化，会再次执行该方法
 			'$route': 'fetchData'
 		},
+		mounted: function () {
+			if (window.QC.Login.check()) {
+				window.QC.Login.getMe((openId, accessToken) => {
+					// 保存授权信息
+					this.saveLoginInfo({openId, accessToken});
+					// 使用QQ授权信息去获取用户信息
+					this.saveThreePartyRequest();
+				});
+			}
+			// 使用QQ授权信息去获取用户信息
+			this.saveThreePartyRequest();
+			if (!Cookies.get()['accessToken'] || Cookies.get()['accessToken'] === '') {
+				// 获取注册用户信息
+				this.GETUSERINFO();
+			}
+		}
 	}
 </script>
 <style lang="less">
@@ -93,10 +106,11 @@
     body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     }
-    .site_tips{
+
+    .site_tips {
         background-color: #ff0040;
         position: fixed;
-        top:40px;
+        top: 40px;
         z-index: 1000;
         left: 0;
         right: 0;
@@ -105,6 +119,7 @@
         color: #fff;
         font-size: 14px;
     }
+
     .view {
         margin-top: 40px;
     }
@@ -156,7 +171,7 @@
                 color: @white;
             }
         }
-        .nav_welcome{
+        .nav_welcome {
             padding: 0 11px 0 11px;
             height: 40px;
             display: block;

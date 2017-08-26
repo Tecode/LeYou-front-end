@@ -9,18 +9,23 @@
                 <ul>
                     <li class="user_input">
                         <label for="user_email"></label>
-                        <input id="user_email" @input="inputContent" type="email" v-model="user_email" placeholder="邮箱账号"/>
+                        <input id="user_email" @input="inputContent" type="email" v-model="user_email"
+                               placeholder="邮箱账号"/>
                         <p class=""></p>
                     </li>
                     <li class="user_password">
                         <label for="password"></label>
-                        <input id="password" v-model="password" @input="inputContent" type="password" placeholder="输入登录密码"/>
+                        <input id="password" v-model="password" @input="inputContent" type="password"
+                               placeholder="输入登录密码"/>
                         <p :class="{error_tips:isError}">{{data.error}}</p>
                     </li>
                     <li class="submit">
                         <label for="submit"></label>
                         <input type="button" @click="loginRequest" value="立即登录" id="submit"/>
                         <loading-line v-if="loading"></loading-line>
+                    </li>
+                    <li class="third_party">
+                        <a href="javascript:;" @click="login" class="qq_login"></a>
                     </li>
                 </ul>
             </div>
@@ -31,14 +36,14 @@
 <script>
 	import {mapMutations} from 'vuex';
 	import {mapState} from 'vuex';
-    import {mapActions} from 'vuex';
-    import LoadingLine from '../../components/common/LoadingLine.vue';
+	import {mapActions} from 'vuex';
+	import LoadingLine from '../../components/common/LoadingLine.vue';
 
 	export default {
 		name: 'comment',
-		components:{
+		components: {
 			LoadingLine
-        },
+		},
 		props: ['id'],
 		data () {
 			return {
@@ -57,6 +62,12 @@
 			}),
 		},
 		methods: {
+			login: function () {
+				window.QC.Login.showPopup({
+					appId: "101415597",
+					redirectURI: "https://www.soscoon.com"
+				})
+			},
 			...mapMutations({
 				closePopup: 'closePopup',
 				inputContent: 'inputContent',
@@ -64,7 +75,7 @@
 			...mapActions({
 				loginRequest: 'loginRequest'
 			})
-		},
+		}
 	}
 </script>
 
@@ -148,6 +159,25 @@
                     margin: 4px 0 5px 0;
                 }
             }
+            .third_party {
+                margin-top: 20px;
+                a {
+                    display: block;
+                    width: 32px;
+                    height: 34px;
+                    cursor: pointer;
+                    opacity: .8;
+                    transition: all .3s;
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+                .qq_login {
+                    background: url("../../imgs/login_icon.png") 0 0 no-repeat;
+                    background-size: 100px;
+                    margin: 0 auto;
+                }
+            }
             p {
                 height: 19px;
                 padding-left: 18px;
@@ -180,9 +210,6 @@
                     background-size: 16px;
                 }
             }
-        }
-        .padding_bot{
-            padding-bottom: 40px;
         }
     }
 
