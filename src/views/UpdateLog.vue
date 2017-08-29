@@ -6,11 +6,8 @@
         <div class="container">
             <div class="row">
                 <ul class="col-md-7 col-md-offset-3 time-line">
-                    <li>
-                        <update-log-item></update-log-item>
-                    </li>
-                    <li>
-                        <update-log-item></update-log-item>
+                    <li v-for="items in listData">
+                        <update-log-item :items="items"></update-log-item>
                     </li>
                 </ul>
             </div>
@@ -20,18 +17,60 @@
 </template>
 
 <script>
-    import UpdateLogItem from '../components/updateLog/UpdateLogItem.vue'
-    import NavFooter from '../components/common/Footer.vue'
+	import UpdateLogItem from '../components/updateLog/UpdateLogItem.vue'
+	import NavFooter from '../components/common/Footer.vue'
 	export default {
 		name: 'update_log',
 		props: ['id'],
-			components:{
+		components: {
 			UpdateLogItem,
 			NavFooter
-        },
+		},
 		data () {
 			return {
-				open: true
+				listData: [
+					{
+						version: '1.0.0',
+						platform: '电脑端',
+						date: '2017-05-12',
+						content: [
+							'完成网站的UI设计制作',
+							'配置服务器环境，开始搭建基本的服务',
+							'使用node.js作为中间层，php作为后台，实现前后端分离'
+						]
+					},
+					{
+						version: '1.0.0',
+						platform: '电脑端',
+						date: '2017-06-24',
+						content: [
+							'分析访问者ip，对ip地址进行解析',
+							'分析访问设备的平台',
+							'优化后台数据库的查询'
+						]
+					},
+					{
+						version: '1.0.0',
+						platform: '电脑端',
+						date: '2017-07-31',
+						content: [
+							'加入百度统计',
+							'使用畅言进行评论互动',
+							'使用Express的模板引擎对页面进行渲染输入静态页面',
+							'Node.js中加入mysql模块，使用Node.js保存图片'
+						]
+					},
+					{
+						version: '1.0.0',
+						platform: '电脑端',
+						date: '2017-08-26',
+						content: [
+							'网站加入QQ授权登录功能，用户可以通过第三方进行登录网站',
+							'增加小游戏模块',
+							'解决IE9不支持 matchMedia()polyfill 问题',
+						]
+					},
+				]
 			}
 		},
 		computed: {},
@@ -41,9 +80,10 @@
 
 <style lang="less" scoped>
     @import "../lib/style/color";
-    .update_log{
-        .big_title{
-            span{
+
+    .update_log {
+        .big_title {
+            span {
                 font-size: 24px;
                 color: @color400;
                 font-weight: 400;
@@ -57,9 +97,9 @@
         background-color: @white100;
         width: 100%;
         height: 100%;
-        .time-line{
+        .time-line {
             position: relative;
-            &:before{
+            &:before {
                 content: "";
                 width: 1px;
                 height: 100%;
@@ -69,7 +109,7 @@
                 background-color: #dedede;
             }
         }
-        .time-line li{
+        .time-line li {
             margin-top: 1.5em;
         }
     }

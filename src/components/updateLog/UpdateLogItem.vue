@@ -1,27 +1,24 @@
 <template>
     <div class="update_item">
         <div class="clearfix title_box">
-            <span class="title active pull-left">1.0.0</span>
-            <span class="lable pc pull-left">电脑端</span>
-            <p class="date">2017-05-12</p>
+            <span class="title active pull-left">{{items.version}}</span>
+            <span class="lable pc pull-left">{{items.platform}}</span>
+            <p class="date">{{items.date}}</p>
         </div>
-        <ul>
-            <li>后台文件新增图片上传功能，上传图片支持jpg、png格式。目前该功能已经上线，赶快体验吧！</li>
-            <li>后台文件新增图片上传功能，上传图片支持jpg、png格式。目前该功能已经上线，赶快体验吧！</li>
-            <li>后台文件新增图片上传功能，上传图片支持jpg、png格式。目前该功能已经上线，赶快体验吧！</li>
-            <li>后台文件新增图片上传功能，上传图片支持jpg、png格式。目前该功能已经上线，赶快体验吧！</li>
+        <ul v-for="item in items.content">
+            <li>{{item}}</li>
         </ul>
     </div>
 </template>
 
 <script>
 	export default {
-		name: 'comment',
-		props: ['id'],
-		data () {
-			return {
-				open: true
-			}
+		name: 'items',
+		props: {
+			items: {
+				type: Object,
+				required: true
+			},
 		},
 		computed: {},
 		methods: {}
@@ -30,16 +27,17 @@
 
 <style lang="less" scoped>
     @import "../../lib/style/color";
-    .update_item{
-        .title_box{
+
+    .update_item {
+        .title_box {
             position: relative;
-            .date{
+            .date {
                 position: absolute;
                 left: -127px;
                 top: .3em;
                 color: #ff7300;
             }
-            &:before{
+            &:before {
                 content: "";
                 display: block;
                 position: absolute;
@@ -52,36 +50,36 @@
                 background-color: #ff7300;
             }
         }
-        .title{
+        .title {
             font-size: 22px;
             font-weight: 400;
         }
-        .lable{
+        .lable {
             font-weight: normal;
             font-size: 14px;
             padding: 1px 8px 1px 8px;
             border-radius: 99px;
             margin: .4em 0 0 8px;
         }
-        .active{
+        .active {
             color: #ff7300;
         }
-        .pc{
+        .pc {
             background-color: #f6baaf;
             color: #f66e54;
         }
-        ul li{
-            font-size: 14px;
+        ul li {
+            font-size: 15px;
             color: @text110;
             line-height: 1.8;
-            &:before{
+            &:before {
                 content: "";
-                width: 4px;
-                height: 4px;
+                width: 5px;
+                height: 5px;
                 border-radius: 50%;
                 margin-bottom: .2em;
                 background-color: @text100;
-                margin-right: 5px;
+                margin-right: 10px;
                 display: inline-block;
                 vertical-align: middle;
             }
