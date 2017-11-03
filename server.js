@@ -13,10 +13,10 @@ const mysql = require('mysql');
 let status = true;
 // 创建mysql数据库连接
 const pool  = mysql.createPool({
-	host: "119.29.249.33",
-	user: "aming",
-	password: "5101259927x",
-	database: "aming_site_db"
+	host: "你的主机ip地址",
+	user: "用户名",
+	password: "数据库密码",
+	database: "数据库"
 });
 
 const isProd = process.env.NODE_ENV === 'production';
