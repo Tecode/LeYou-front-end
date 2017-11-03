@@ -1,165 +1,94 @@
+
+# 基于vue的博客项目
+![image](https://admin.soscoon.com/image/mysite-time1509679684444.png)
+## [Demo](https://www.soscoon.com)
+## 安装
+
 ``` bash
-# install dependencies
+
+# 安装node模块
 npm install # or yarn
 
-# serve in dev mode, with hot reload at localhost:8080
+# 在开发模式下运行项目 localhost:8080
 npm run dev
 
-# build for production
+# 发布正式环境构建项目
 npm run build
 
-# serve in production mode
+# 在产品模式下运行项目
 npm start
+
 ```
-```bash
-import Vue from 'vue'
-import { Button, Select } from 'element-ui'
-import App from './App.vue'
 
-Vue.component(Button.name, Button)
-Vue.component(Select.name, Select)
-/* 或写为
- * Vue.use(Button)
- * Vue.use(Select)
- */
+## 注意事项
+###### 如果要报数据库的错误请将以下代码改为自己的配置，或者删除server.js文件中与数据库有关的代码！！！
+```　bash
+// 创建mysql数据库连接
 
-new Vue({
-  el: '#app',
-  render: h => h(App)
-})
-完整组件列表和引入方式（完整组件列表以 components.json 为准）
+const pool  = mysql.createPool({
+	host: "你的主机ip地址",
+	user: "用户名",
+	password: "数据库密码",
+	database: "数据库"
+});
 
-import Vue from 'vue'
-import {
-  Pagination,
-  Dialog,
-  Autocomplete,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-  Menu,
-  Submenu,
-  MenuItem,
-  MenuItemGroup,
-  Input,
-  InputNumber,
-  Radio,
-  RadioGroup,
-  RadioButton,
-  Checkbox,
-  CheckboxGroup,
-  Switch,
-  Select,
-  Option,
-  OptionGroup,
-  Button,
-  ButtonGroup,
-  Table,
-  TableColumn,
-  DatePicker,
-  TimeSelect,
-  TimePicker,
-  Popover,
-  Tooltip,
-  Breadcrumb,
-  BreadcrumbItem,
-  Form,
-  FormItem,
-  Tabs,
-  TabPane,
-  Tag,
-  Tree,
-  Alert,
-  Slider,
-  Icon,
-  Row,
-  Col,
-  Upload,
-  Progress,
-  Spinner,
-  Badge,
-  Card,
-  Rate,
-  Steps,
-  Step,
-  Carousel,
-  Scrollbar,
-  CarouselItem,
-  Collapse,
-  CollapseItem,
-  Cascader,
-  ColorPicker,
-  Loading,
-  MessageBox,
-  Message
-} from 'element-ui'
-
-Vue.use(Pagination)
-Vue.use(Dialog)
-Vue.use(Autocomplete)
-Vue.use(Dropdown)
-Vue.use(DropdownMenu)
-Vue.use(DropdownItem)
-Vue.use(Menu)
-Vue.use(Submenu)
-Vue.use(MenuItem)
-Vue.use(MenuItemGroup)
-Vue.use(Input)
-Vue.use(InputNumber)
-Vue.use(Radio)
-Vue.use(RadioGroup)
-Vue.use(RadioButton)
-Vue.use(Checkbox)
-Vue.use(CheckboxGroup)
-Vue.use(Switch)
-Vue.use(Select)
-Vue.use(Option)
-Vue.use(OptionGroup)
-Vue.use(Button)
-Vue.use(ButtonGroup)
-Vue.use(Table)
-Vue.use(TableColumn)
-Vue.use(DatePicker)
-Vue.use(TimeSelect)
-Vue.use(TimePicker)
-Vue.use(Popover)
-Vue.use(Tooltip)
-Vue.use(Breadcrumb)
-Vue.use(BreadcrumbItem)
-Vue.use(Form)
-Vue.use(FormItem)
-Vue.use(Tabs)
-Vue.use(TabPane)
-Vue.use(Tag)
-Vue.use(Tree)
-Vue.use(Alert)
-Vue.use(Slider)
-Vue.use(Icon)
-Vue.use(Row)
-Vue.use(Col)
-Vue.use(Upload)
-Vue.use(Progress)
-Vue.use(Spinner)
-Vue.use(Badge)
-Vue.use(Card)
-Vue.use(Rate)
-Vue.use(Steps)
-Vue.use(Step)
-Vue.use(Carousel)
-Vue.use(Scrollbar)
-Vue.use(CarouselItem)
-Vue.use(Collapse)
-Vue.use(CollapseItem)
-Vue.use(Cascader)
-Vue.use(ColorPicker)
-
-Vue.use(Loading.directive)
-
-Vue.prototype.$loading = Loading.service
-Vue.prototype.$msgbox = MessageBox
-Vue.prototype.$alert = MessageBox.alert
-Vue.prototype.$confirm = MessageBox.confirm
-Vue.prototype.$prompt = MessageBox.prompt
-Vue.prototype.$notify = Notification
-Vue.prototype.$message = Message
 ```
+## 图片展示
+> * 首页
+
+![image](https://admin.soscoon.com/image/mysite-time1509680270977.png)
+> * 用户留言反馈
+
+![image](https://admin.soscoon.com/image/mysite-time1509680347293.png)
+> * 小游戏
+
+![image](https://admin.soscoon.com/image/mysite-time1509680388396.png)
+> * 内容详情页
+
+![image](https://admin.soscoon.com/image/mysite-time1509680434031.png)
+
+## 技术栈
+
+> 项目地址：http://www.soscoon.com
+
+### 前端
+
+> - vue
+> - vue-router
+> - vuex
+> - axios
+> - es6
+> - Node(Express作为服务器启动应用)
+> - webpack
+> - element-ui 1.4.0
+
+
+### 后端
+
+> - PHP7
+> - Laravel5.4
+> - JWT(JSON WEB TOKEN)
+
+### 数据库
+
+> - Mysql
+
+### Dillinger编辑器
+
+> - angularJS 1.3.0
+> - gulp 3.9.0
+
+# 环境
+
+### 本地开发
+
+> - 操作系统：Windows10
+> - 服务器：Apache
+> - 代理服务器: nginx
+> - 前端服务器：Express
+
+### 线上正式
+
+> - 操作系统：CentOS7
+> - 服务器：nginx
+> - 前端服务器：Express
