@@ -78,7 +78,7 @@ const pool  = mysql.createPool({
 > - angularJS 1.3.0
 > - gulp 3.9.0
 
-# 环境
+## 环境
 
 ### 本地开发
 
